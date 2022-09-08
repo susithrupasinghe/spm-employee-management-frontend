@@ -10,6 +10,7 @@ import './App.css';
 import AdminProjectManagement from "./pages/Admin/AdminProjectManagement/AdminProjectManagement";
 import ProjectDashboardPage from "./pages/ProjectManager/ProjectDashboard/projectDashboard";
 import ProjectManagement from "./pages/ProjectManager/ProjectManagement/ProjectManagement";
+import ProjectOverview from "./pages/Employee/ProjectOverview/ProjectOverview";
 import LoginPage from "./pages/EmployeeManagement/EmployeeLoginPage/EmployeeLoginPage";
 import EmployeeDashboard from "./pages/EmployeeManagement/EmployeeDashboard/EmployeeDashboard";
 import AddEmployee from "./pages/EmployeeManagement/AddEmployee/AddEmployee";
@@ -29,7 +30,7 @@ function App() {
       <Route excat path="/employee/addAttendance" element={<AddAtendance />} />
       <Route excat path="/editprofile/:id" element={<EditProfile />} />
       
-      
+      <Route excat path="/:name/overview" element={< ProjectOverview/>} />
       </Routes>
     </Router>
   );
