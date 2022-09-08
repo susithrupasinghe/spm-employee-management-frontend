@@ -16,11 +16,13 @@ import EmployeeDashboard from "./pages/EmployeeManagement/EmployeeDashboard/Empl
 import AddEmployee from "./pages/EmployeeManagement/AddEmployee/AddEmployee";
 import AddAtendance from "./pages/EmployeeManagement/AddAttendance/AddAttendance";
 import EditProfile from "./pages/EmployeeManagement/EditProfile/EditProfile";
+import AdminDashboardPage from "./pages/Admin/AdminDashboard/AdminDashboard";
 function App() {
   return (
     <Router>
       <Landing/>
       <Routes>
+      <Route excat path="/admin/dashboard" element={<AdminDashboardPage />} />
       <Route excat path="/pm/projectdashboard" element={<ProjectDashboardPage />} />
       <Route excat path="/admin/projectmanagement" element={<AdminProjectManagement />} />
       <Route excat path="/pm/projectmanagement" element={<ProjectManagement />} />

@@ -9,6 +9,11 @@ const Header = () => {
     )
 } 
 
+function toTimestamp(strDate) {
+  var datum = Date.parse(strDate);
+  return datum / 1000;
+}
+
 const Projects = () => {
 
   const [projects, setProjects] = useState([]);
