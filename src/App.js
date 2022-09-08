@@ -16,6 +16,9 @@ import EmployeeDashboard from "./pages/EmployeeManagement/EmployeeDashboard/Empl
 import AddEmployee from "./pages/EmployeeManagement/AddEmployee/AddEmployee";
 import AddAtendance from "./pages/EmployeeManagement/AddAttendance/AddAttendance";
 import EditProfile from "./pages/EmployeeManagement/EditProfile/EditProfile";
+import ProjectManagerDashboard from "./pages/ProjectManager/ProjectManagerDashboard/ProjectManageDashboard";
+import Sprint from "./pages/ProjectManager/Sprint/Sprint";
+
 function App() {
   return (
     <Router>
@@ -31,6 +34,8 @@ function App() {
       <Route excat path="/editprofile/:id" element={<EditProfile />} />
       
       <Route excat path="/:name/overview" element={< ProjectOverview/>} />
+      <Route excat path="/pm/dashboard" element={<ProjectManagerDashboard />} />
+      <Route excat path="/:name/sprint" element={< Sprint/>} />
       </Routes>
     </Router>
   );
