@@ -1,11 +1,22 @@
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import recruit from "../../../assets/ProjectManagementDashboard/recruit.svg";
 import sprint from "../../../assets/ProjectManagementDashboard/sprintManagement.svg";
 import evaluate from "../../../assets/ProjectManagementDashboard/evaluateProject.svg";
 const Header = () => {
+    const location = useLocation();
+    const title = location.state.projectName;
+    const id = location.state.projectId;
+    const noOfEmployee = location.state.onOfEmployee;
+    const sprints = location.state.sprints;
+    console.log("title",title);
+
     return (
         <div className="text-center mt-5" style={{fontSize: "20px", color: "black", float: "right" }}>
-            <span className="display-6" style={{fontWeight: "bold"}}>Time table management system</span>
+            <span className="display-6" style={{fontWeight: "bold"}}>{title}</span>
+            <br/>
+            <span>No of Employees : {noOfEmployee}</span>
+            <br/>
+            <span>No of sprints: {sprints}</span>
         </div>
     )
 }
