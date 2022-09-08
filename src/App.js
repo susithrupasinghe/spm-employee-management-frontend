@@ -26,7 +26,7 @@ function App() {
       <Landing/>
       <Routes>
       <Route excat path="/admin/dashboard" element={<AdminDashboardPage />} />
-      <Route excat path="/pm/projectdashboard" element={<ProjectDashboardPage />} />
+      <Route excat path="/pm/projectdashboard/:id" element={<ProjectDashboardPage />} />
       <Route excat path="/admin/projectmanagement" element={<AdminProjectManagement />} />
       <Route excat path="/pm/projectmanagement" element={<ProjectManagement />} />
       <Route excat path="/emplogin" element={<LoginPage />} />
