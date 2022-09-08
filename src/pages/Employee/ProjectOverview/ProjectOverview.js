@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Header = () => {
     return (
@@ -5,9 +7,22 @@ const Header = () => {
             <span className="display-6" style={{fontWeight: "bold"}}>Project Overview</span>
         </div>
     )
-}
+} 
 
 const Projects = () => {
+
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios("http://localhost:5000/api/project/all");
+      setProjects(result.data);
+    }
+    fetchData();
+}, []);
+
+console.log(projects);
+
   return (
     <div class="card" style={{marginTop: "2rem"}}>
   <div class="card-body">
