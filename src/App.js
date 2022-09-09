@@ -18,6 +18,7 @@ import AddAtendance from "./pages/EmployeeManagement/AddAttendance/AddAttendance
 import EditProfile from "./pages/EmployeeManagement/EditProfile/EditProfile";
 import ProjectManagerDashboard from "./pages/ProjectManager/ProjectManagerDashboard/ProjectManageDashboard";
 import Sprint from "./pages/ProjectManager/Sprint/Sprint";
+import KanbanChart from "./pages/ProjectManager/Kanban chart/Kanbanchart";
 
 function App() {
   return (
@@ -36,6 +37,10 @@ function App() {
       <Route excat path="/:name/overview" element={< ProjectOverview/>} />
       <Route excat path="/pm/dashboard" element={<ProjectManagerDashboard />} />
       <Route excat path="/:name/sprint" element={< Sprint/>} />
+      <Route excat path="/:name/kanban" element={<KanbanChart />} />
+      <Route excat path="/project/overview" element={< ProjectOverview/>} />
+
+
       </Routes>
     </Router>
   );

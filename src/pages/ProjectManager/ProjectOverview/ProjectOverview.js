@@ -1,37 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import {useNavigate } from "react-router-dom";
+
 const Header = () => {
     return (
         <div className="text-center mt-5" style={{fontSize: "20px", color: "black", float: "left" }}>
             <span className="display-6" style={{fontWeight: "bold"}}>Project Overview</span>
         </div>
     )
-} 
+}
 
 const Projects = () => {
-
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios("http://localhost:5000/api/project/all");
-      setProjects(result.data);
-    }
-    fetchData();
-}, []);
-
-const navigate = useNavigate()
-
-const handleKandban = (id) => {
-  navigate(`/${id}/kanban`, {
-    state: {
-      
-    }
-  })
-}
-console.log(projects);
-
   return (
     <div class="card" style={{marginTop: "2rem"}}>
   <div class="card-body">
@@ -41,17 +17,14 @@ console.log(projects);
     </div>
     <div>
     <div class="row">
-      {projects.map((project) => (
-        
-      
   <div class="col-sm-3">
-    <div class="card" style={{borderRadius: "15%", marginTop: "1rem"}}>
+    <div class="card" style={{borderRadius: "15%"}}>
       <div class="card-body">
-        <span>{project._id}</span>
-        <h5 class="card-title" style={{fontWeight: "bold", fontSize: "1.5rem"}}>{project.projectName}</h5>
+        <span>P_001</span>
+        <h5 class="card-title" style={{fontWeight: "bold", fontSize: "1.5rem"}}>E-commerce Website</h5>
         <span>Project Manager: </span>
         <br/>
-        <span style={{color: "#FD0054", fontSize: "1.5rem"}}>{project.projectManager.name}</span>
+        <span style={{color: "#FD0054", fontSize: "1.5rem"}}>Sasindu Nanayakkara</span>
         <div style={{display: "flex", gap: "2rem", padding: "1rem 2rem"}}>
           <div style={{borderRadius: "50%", backgroundColor: "red", width: "50px", height: "40px", lineHeight: "40px", textAlign:"center", MozBorderRadius: "50%", WebkitBorderRadius: "50%", color: "white"}}>1</div>
           <div style={{borderRadius: "50%", backgroundColor: "orange", width: "50px", height: "40px", lineHeight: "40px", textAlign:"center", MozBorderRadius: "50%", WebkitBorderRadius: "50%", color: "white"}}>1</div>
@@ -60,12 +33,11 @@ console.log(projects);
       </div>
         <div style={{display: "flex"}}>
         <button type="button" class="btn btn-secondary" style={{padding: "5px 15px", borderBottomLeftRadius: "15%", marginRight: "2px"}}>Documentation</button>
-        <button type="button" class="btn btn-secondary" style={{padding: "5px 25px", borderBottomRightRadius: "15%"}} onClick={() => {handleKandban(project._id)}}>Kanban Layout</button>
+        <button type="button" class="btn btn-secondary" style={{padding: "5px 25px", borderBottomRightRadius: "15%"}}>Kanban Layout</button>
         </div>
     </div>
   </div>
-  ))}
-  {/* <div class="col-sm-3">
+  <div class="col-sm-3">
     <div class="card" style={{borderRadius: "15%"}}>
       <div class="card-body">
         <span>P_001</span>
@@ -124,7 +96,7 @@ console.log(projects);
         <button type="button" class="btn btn-secondary" style={{padding: "5px 25px", borderBottomRightRadius: "15%"}}>Kanban Layout</button>
         </div>
     </div>
-  </div> */}
+  </div>
 </div>
     </div>
   </div>
