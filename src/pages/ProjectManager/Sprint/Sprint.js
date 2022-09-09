@@ -7,8 +7,11 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import moment from "moment";
+import DatePicker from "react-datepicker";
 
-const Header = () => {
+import "react-datepicker/dist/react-datepicker.css";
+
+const Header = (props) => {
 
   const [modal, setModal] = useState(false);
 
@@ -27,12 +30,39 @@ const Header = () => {
         justifyContent: "space-between",
       }}
     >
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle}  style={{maxWidth: '600px', width: '100%'}}>
         <ModalHeader toggle={toggle}>Create Sprint</ModalHeader>
         <ModalBody>
-          <span>Sprint 3</span>
+      
+        <h4>Sprint {props.count + 1}</h4>
+          <div class="container">
+          <div class="row">
           <br />
+          <div className='col-6'>
           <span>From</span>
+          </div>
+          <div className='col-6'>
+          <span>To</span>
+          </div>
+          
+            </div>
+
+          <div class="row">
+            <div className='col-6'>
+              <DatePicker
+                open={true}
+                inline
+              />
+            </div>
+            <div className='col-6'>
+              <DatePicker
+                open={true}
+                inline
+              />
+            </div>
+            </div>
+          </div>
+
         </ModalBody>
         <ModalFooter>
           <Button class="btn btn-dark" onClick={toggle}>
@@ -69,13 +99,14 @@ const Header = () => {
 
 
 const SprintCard = (props) => {
-  const [modal, setModal] = useState(false);
+  const [modalFeedback, setModalFeedback] = useState(false);
 
-  const toggle = () => setModal(!modal);
+
+  const toggleFeedback = () => setModalFeedback(!modalFeedback);
   return (
     <div class="card" style={{ borderRadius: "10px" }}>
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Add Feedback</ModalHeader>
+      <Modal isOpen={modalFeedback} toggle={toggleFeedback}>
+        <ModalHeader toggle={toggleFeedback}>Add Feedback</ModalHeader>
         <ModalBody>
           <form>
             <label>Add Feedback</label>
@@ -83,18 +114,19 @@ const SprintCard = (props) => {
           </form>
         </ModalBody>
         <ModalFooter>
-          <Button class="btn btn-dark" onClick={toggle}>
+          <Button class="btn btn-dark" onClick={toggleFeedback}>
             Add
           </Button>{' '}
 
         </ModalFooter>
       </Modal>
+
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div class="card-body">
           <h3 style={{ fontWeight: "bold" }}>Sprint {props.count}</h3>
           <span style={{ color: "gray" }}>
-            {props.start != null && props.start != undefined ? moment(props.start).utc().format('YYYY-MM-DD') : 'Data unavailable'} - 
-            {props.end != null && props.end != undefined ?  moment(props.end).utc().format('YYYY-MM-DD') : 'Data unavailable'}
+            {props.start != null && props.start != undefined ? moment(props.start).utc().format('YYYY-MM-DD') : 'Data unavailable'} -
+            {props.end != null && props.end != undefined ? moment(props.end).utc().format('YYYY-MM-DD') : 'Data unavailable'}
           </span>
         </div>
         <div style={{ marginRight: "1rem", marginTop: "1rem" }}>
@@ -102,7 +134,7 @@ const SprintCard = (props) => {
             type="button"
             class="btn btn-dark"
             style={{ padding: "8px 25px" }}
-            onClick={toggle}
+            onClick={toggleFeedback}
           >
             Add Feedback
           </button>
@@ -253,35 +285,34 @@ const Sprint = () => {
 
     let TaskListPrev;
 
-    if(sprintCount > 1) {
+    if (sprintCount > 1) {
 
       let todoListPrev = sprintCount > 1 && project.sprintList[1] ? project.sprintList[1].toDoList : null;
       let inProgressListPrev = sprintCount > 1 && project.sprintList[1] ? project.sprintList[1].inProgressList : null;
       let doneListPrev = sprintCount > 1 && project.sprintList[1] ? project.sprintList[1].doneList : null;
-  
+
       todoListPrev = todoListPrev != null ? todoListPrev.map((item) => {
         item.progress = "todo"
         return item;
       }) : null
-  
-      inProgressListPrev = inProgressListPrev != null ?  inProgressListPrev.map((item) => {
+
+      inProgressListPrev = inProgressListPrev != null ? inProgressListPrev.map((item) => {
         item.progress = "inprogress"
         return item;
       }) : null
-  
-      doneListPrev = doneListPrev != null ?  doneListPrev.map((item) => {
+
+      doneListPrev = doneListPrev != null ? doneListPrev.map((item) => {
         item.progress = "done"
         return item;
       }) : null
-  
-      if(todoListPrev.length > 0 || inProgressListPrev > 0 || doneListPrev > 0)
-      {
+
+      if (todoListPrev.length > 0 || inProgressListPrev > 0 || doneListPrev > 0) {
         TaskListPrev = [...todoListPrev, ...inProgressListPrev, ...doneListPrev];
       }
-      else{
+      else {
         TaskListPrev = null;
       }
-       
+
     }
 
 
@@ -290,13 +321,13 @@ const Sprint = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <Header />
+              <Header count={sprintCount}/>
             </div>
             {
-              sprintCount >=1 && TaskListPrev != null?
+              sprintCount >= 1 && TaskListPrev != null ?
                 <>
                   <div className="col-lg-12" style={{ marginTop: "2rem" }}>
-                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount}/>
+                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} />
                   </div>
                   <div className="col-lg-12" style={{ marginTop: "1.5rem" }}>
                     <SprintCard tasks={TaskListPrev} />
@@ -305,7 +336,7 @@ const Sprint = () => {
                 :
                 <>
                   <div className="col-lg-12" style={{ marginTop: "2rem" }}>
-                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount}/>
+                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} />
                   </div>
                 </>
 
@@ -324,7 +355,7 @@ const Sprint = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <Header />
+              <Header count={0} />
             </div>
             {/* <div className="col-lg-12" style={{ marginTop: "2rem" }}>
               <SprintCard />
