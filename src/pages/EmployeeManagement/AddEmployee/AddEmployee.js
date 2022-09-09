@@ -1,6 +1,7 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
+import { useState } from "react";
 const Header = () => {
   return (
     <div
@@ -26,7 +27,7 @@ const Header = () => {
   );
 };
 
-const Add = (event) =>{
+const Add = async (event) =>{
     event.preventDefault();
     const name =event.target.name.value;
     const email =event.target.email.value;
@@ -36,16 +37,36 @@ const Add = (event) =>{
     const mobileNumber =event.target.mobileNumber.value;
     const rate =event.target.rate.value;
 
-    axios.post('register',{
-      name :event.target.name.value
-    })
+   const data ={
+    name:name,
+    username:"aaa",
+    email:email, 
+    password:password, 
+    mobileNumber:mobileNumber, 
+    department:department, 
+    rate:rate 
+   };
+
+   try {
+    const res = await axios.post(
+      `http://localhost:5000/api/employee/register`,
+      data
+    );
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
 
 
 
-    console.table(name,email,password,role,department,mobileNumber,rate)
+    //console.table(name,email,password,role,department,mobileNumber,rate)
 };
 
 const AddEmployeeForm = () => {
+
+  const[table,setTable] = useState("");
+
+
 
 
   return (
@@ -128,9 +149,9 @@ const AddEmployeeForm = () => {
               <thead class="table-dark">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Department</th>
                   <th scope="col">Delete</th>
                 </tr>
               </thead>
