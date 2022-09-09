@@ -1,22 +1,13 @@
-import {Link, useLocation} from "react-router-dom";
-import recruit from "../../../assets/ProjectManagementDashboard/recruit.svg";
-import sprint from "../../../assets/ProjectManagementDashboard/sprintManagement.svg";
-import evaluate from "../../../assets/ProjectManagementDashboard/evaluateProject.svg";
-const Header = () => {
-    const location = useLocation();
-    const title = location.state.projectName;
-    const id = location.state.projectId;
-    const noOfEmployee = location.state.onOfEmployee;
-    const sprints = location.state.sprints;
-    console.log("title",title);
+import {Link} from "react-router-dom";
 
+import profileEdit from '../../../assets/EmployeeDashboard/profileEdit.svg';
+import projectDetails from '../../../assets/EmployeeDashboard/projectDetails.svg';
+import markAttendance from '../../../assets/EmployeeDashboard/markAttendance.svg';
+
+const Header = () => {
     return (
-        <div className="text-center mt-5" style={{fontSize: "20px", color: "black", float: "right" }}>
-            <span className="display-6" style={{fontWeight: "bold"}}>{title}</span>
-            <br/>
-            <span>No of Employees : {noOfEmployee}</span>
-            <br/>
-            <span>No of sprints: {sprints}</span>
+        <div className="text-center mt-5" style={{ fontFamily: "Inter", fontSize: "20px", color: "grey" }}>
+            <span className="display-6">Employee DASHBOARD</span>
         </div>
     )
 }
@@ -27,10 +18,10 @@ const CardSection = () => {
         <div>
             <div className="row mt-4">
                 <div className="col-lg-4 p-3">
-                    <Link to="/addemployee">
+                    <Link to="/editprofile/:id">
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardOne" style={{
-                                 backgroundImage: `url(${recruit})`, backgroundSize: "cover", 
+                                 backgroundImage: `url(${profileEdit})`, backgroundSize: "cover", 
                                  backgroundRepeat: 'no-repeat', backgroundOrigin: 'content-box' 
                                  }}>
                          
@@ -39,10 +30,10 @@ const CardSection = () => {
                     </Link>
                 </div>
                 <div className="col-lg-4 p-3">
-                    <Link to="/pmlist">
+                    <Link to="/:name/overview">
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardOne" style={{
-                                 backgroundImage: `url(${sprint})`, backgroundSize: "cover", 
+                                 backgroundImage: `url(${projectDetails})`, backgroundSize: "cover", 
                                  backgroundRepeat: 'no-repeat', backgroundOrigin: 'content-box' 
                                  }}>
                             </div>
@@ -50,10 +41,10 @@ const CardSection = () => {
                     </Link>
                 </div>
                 <div className="col-lg-4 p-3">
-                    <Link to="/adminprojectsdashboard">
+                    <Link to="/employee/addAttendance">
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardTwo" style={{
-                                 backgroundImage: `url(${evaluate})`, backgroundSize: "cover", 
+                                 backgroundImage: `url(${markAttendance})`, backgroundSize: "cover", 
                                  backgroundRepeat: 'no-repeat', backgroundOrigin: 'content-box' 
                                  }}>
                             </div>
@@ -65,7 +56,7 @@ const CardSection = () => {
     )
 }
 
-const ProjectDashboardPage = () => {
+const EmployeeDashboard = () => {
     return(
         <div>
             <div className="container">
@@ -78,4 +69,4 @@ const ProjectDashboardPage = () => {
     )
 }
 
-export default ProjectDashboardPage;
+export default EmployeeDashboard;

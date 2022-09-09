@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     return (
@@ -27,6 +28,18 @@ const Header = () => {
     }, []);
 
     console.log(projects);
+    const navigate = useNavigate();
+
+    const navigateDashboard = (project) => {
+      navigate(`/pm/projectdashboard/${project._id}`, {
+        state: {
+          projectName: project.projectName,
+          projectId: project._id,
+          onOfEmployee: project.employeeList.length,
+          sprints: project.sprintList.length,
+         },
+      });
+    }
 
     return (
       <div style={{ marginTop: "2.5rem" }}>
@@ -36,7 +49,7 @@ const Header = () => {
             <tr>
               <td>{project._id}</td>
               <td>{project.projectName}</td>
-              <td><button type="button" class="btn btn-danger">Manage</button></td>
+              <td><button type="button" class="btn btn-danger" onClick={()=> {navigateDashboard(project)}}>Manage</button></td>
             </tr>
               )
             )}
