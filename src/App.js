@@ -18,12 +18,14 @@ import AddAtendance from "./pages/EmployeeManagement/AddAttendance/AddAttendance
 import EditProfile from "./pages/EmployeeManagement/EditProfile/EditProfile";
 import ProjectManagerDashboard from "./pages/ProjectManager/ProjectManagerDashboard/ProjectManageDashboard";
 import Sprint from "./pages/ProjectManager/Sprint/Sprint";
-
+import KanbanChart from "./pages/ProjectManager/Kanban chart/Kanbanchart";
+import AdminDashboardPage from "./pages/Admin/AdminDashboard/AdminDashboard";
 function App() {
   return (
     <Router>
       <Landing/>
       <Routes>
+      <Route excat path="/admin/dashboard" element={<AdminDashboardPage />} />
       <Route excat path="/pm/projectdashboard/:id" element={<ProjectDashboardPage />} />
       <Route excat path="/admin/projectmanagement" element={<AdminProjectManagement />} />
       <Route excat path="/pm/projectmanagement" element={<ProjectManagement />} />
@@ -35,7 +37,10 @@ function App() {
       
       <Route excat path="/:name/overview" element={< ProjectOverview/>} />
       <Route excat path="/pm/dashboard" element={<ProjectManagerDashboard />} />
-      <Route excat path="/:id/sprint" element={< Sprint/>} />
+
+      <Route excat path="/:name/sprint" element={< Sprint/>} />
+      <Route excat path="/:name/kanban/:id" element={<KanbanChart />} />
+
       </Routes>
     </Router>
   );
