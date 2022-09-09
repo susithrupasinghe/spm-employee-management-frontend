@@ -35,7 +35,7 @@ function App() {
       
       <Route excat path="/:name/overview" element={< ProjectOverview/>} />
       <Route excat path="/pm/dashboard" element={<ProjectManagerDashboard />} />
-      <Route excat path="/:name/sprint" element={< Sprint/>} />
+      <Route excat path="/:id/sprint" element={< Sprint/>} />
       </Routes>
     </Router>
   );
