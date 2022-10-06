@@ -18,7 +18,11 @@ const CardSection = () => {
         <div>
             <div className="row mt-4">
                 <div className="col-lg-4 p-3">
+
+                    <Link to="/employee/add">
+
                     <Link to="/addemployee">
+
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardOne" style={{
                                  backgroundImage: `url(${employeeManagementImage})`, backgroundSize: "cover", 

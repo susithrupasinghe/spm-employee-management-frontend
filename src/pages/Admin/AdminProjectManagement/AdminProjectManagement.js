@@ -11,9 +11,21 @@ const ModelPopUp = (props) => {
 
   const [projectName, setProjectName] = useState("");
   const [descripton, setDescription] = useState("");
-  const [projectManager, setProjectManager] = useState("");
+  const [projectManager, setProjectManager] = useState([]);
+  const [pmId, setPmId] = useState(null);
 
-  const handleUpdate = async (id) => {
+  useEffect(() => {
+    const fetchPMData = async () => {
+      const result = await axios.get(
+        "http://localhost:5000/api/projectmanager/all"
+      );
+      console.log("result : ", result.data);
+      setProjectManager(result.data);
+    };
+    fetchPMData();
+  }, []);
+
+  const handleUpdate = async () => {
     console.log("ok");
     const data = {
       projectName: projectName,
@@ -23,7 +35,7 @@ const ModelPopUp = (props) => {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/project/${id}`,
+        `http://localhost:5000/api/project/${props.project._id}`,
         data
       );
       console.log(res);
@@ -46,7 +58,7 @@ const ModelPopUp = (props) => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Project Update</ModalHeader>
         <ModalBody>
-          <form onSubmit={() => {handleUpdate(props.project._id)}}>
+          <form onSubmit={handleUpdate}>
             <div class="form-group">
               <label for="exampleFormControlInput1">Project Name</label>
               <input
@@ -69,24 +81,27 @@ const ModelPopUp = (props) => {
             </div>
             <div class="form-group" style={{ marginTop: "1rem" }}>
               <label for="exampleFormControlSelect1">Project Manager</label>
-              <input
-                type="text"
+              <select
                 class="form-control"
+                id="exampleFormControlSelect1"
                 defaultValue={props.project.projectManager.name}
-                placeholder="Project Name"
-                onChange={(e) => setProjectManager(e.target.value)}
-              />
+                onChange={(e) => {const data = e.target.value; setPmId(data)}}
+              >
+                {projectManager.map((pm) => (
+                  <option value={pm._id}>{pm.name}</option>
+                ))}
+              </select>
             </div>
+            <ModalFooter>
+              <Button type="submit" class="btn btn-dark" onClick={toggle}>
+                Update
+              </Button>{" "}
+              <Button class="btn btn-danger" onClick={toggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
           </form>
         </ModalBody>
-        <ModalFooter>
-          <Button type="submit" class="btn btn-dark" onClick={toggle}>
-            Update
-          </Button>{" "}
-          <Button class="btn btn-danger" onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
       </Modal>
     </tr>
   );
@@ -98,28 +113,43 @@ const Header = () => {
   const toggle = () => setModal(!modal);
 
   const [projectName, setProjectName] = useState("");
-    const [descripton, setDescription] = useState("");
-    const [projectManager, setProjectManager] = useState("");
+  const [descripton, setDescription] = useState("");
+  const [projectManager, setProjectManager] = useState([]);
+  const [pmId, setPmId] = useState(null);
 
-    const handleAdd = async (e) => {
-        e.preventDefault();
-        console.log("ok");
-        const data = {
-            projectName: projectName,
-            descripton: descripton,
-            projectManager: projectManager,
-        };
-        console.log(data);
-        try {
-            const res = await axios.post(`http://localhost:5000/api/project/`, data);
-            if (res) {
-                console.log(res);
-                toggle();
-            }
-        } catch (error) {
-            console.log(error);
-        }
+  useEffect(() => {
+    const fetchPMData = async () => {
+      const result = await axios.get(
+        "http://localhost:5000/api/projectmanager/all"
+      );
+      console.log("result : ", result.data);
+      setProjectManager(result.data);
+    };
+    fetchPMData();
+  }, []);
+
+  console.log("PM",projectManager);
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    console.log("pm id : ", pmId);
+
+    const data = {
+      projectName: projectName,
+      descripton: descripton,
+      projectManager: pmId,
+    };
+    console.log(data);
+    try {
+      const res = await axios.post(`http://localhost:5000/api/project/`, data);
+      if (res) {
+        console.log(res);
+        toggle();
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
   return (
     <div
@@ -137,6 +167,7 @@ const Header = () => {
                 class="form-control"
                 placeholder="Project Name"
                 onChange={(e) => setProjectName(e.target.value)}
+                required
               />
             </div>
             <div class="form-group" style={{ marginTop: "1rem" }}>
@@ -146,27 +177,31 @@ const Header = () => {
                 id="exampleFormControlTextarea1"
                 rows="3"
                 onChange={(e) => setDescription(e.target.value)}
+                required
               ></textarea>
             </div>
             <div class="form-group" style={{ marginTop: "1rem" }}>
               <label for="exampleFormControlSelect1">Project Manager</label>
-              <input
-                type="text"
+              <select
                 class="form-control"
-                placeholder="Project Name"
-                onChange={(e) => setProjectManager(e.target.value)}
-              />
+                id="exampleFormControlSelect1"
+                onChange={(e) => {const data = e.target.value; setPmId(data)}}
+              >
+                {projectManager.map((pm) => (
+                  <option value={pm._id}>{pm.name}</option>
+                ))}
+              </select>
             </div>
+            <ModalFooter>
+              <Button type="submit" class="btn btn-dark">
+                Create
+              </Button>{" "}
+              <Button class="btn btn-danger" onClick={toggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
           </form>
         </ModalBody>
-        <ModalFooter>
-          <Button type="submit" class="btn btn-dark">
-            Create
-          </Button>{" "}
-          <Button class="btn btn-danger" onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
       </Modal>
       <span className="display-6" style={{ fontWeight: "bold", float: "left" }}>
         Project Management

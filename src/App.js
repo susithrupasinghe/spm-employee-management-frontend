@@ -20,6 +20,8 @@ import ProjectManagerDashboard from "./pages/ProjectManager/ProjectManagerDashbo
 import Sprint from "./pages/ProjectManager/Sprint/Sprint";
 import KanbanChart from "./pages/ProjectManager/Kanban chart/Kanbanchart";
 import AdminDashboardPage from "./pages/Admin/AdminDashboard/AdminDashboard";
+
+
 function App() {
   return (
     <Router>
@@ -39,6 +41,11 @@ function App() {
       <Route excat path="/pm/dashboard" element={<ProjectManagerDashboard />} />
 
       <Route excat path="/:name/sprint" element={< Sprint/>} />
+
+      <Route excat path="/:name/kanban" element={<KanbanChart />} />
+      <Route excat path="/project/overview" element={< ProjectOverview/>} />
+
+
       <Route excat path="/:name/kanban/:id" element={<KanbanChart />} />
 
       </Routes>
