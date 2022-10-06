@@ -7,7 +7,7 @@ import markAttendance from '../../../assets/ProjectManagerDashboard/markAttendan
 const Header = () => {
     return (
         <div className="text-center mt-5" style={{fontSize: "20px", color: "black", float: "right" }}>
-            <span className="display-6" style={{fontWeight: "bold"}}>Welcome Diluni</span>
+            <span className="display-6" style={{fontWeight: "bold"}}>Welcome Susith</span>
         </div>
     )
 }

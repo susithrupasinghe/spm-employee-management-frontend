@@ -17,6 +17,7 @@
     "react-live-clock": "^6.0.6",
     "react-loader-spinner": "^5.3.4",
     "react-moment": "^1.1.2",
+    "react-notifications": "^1.7.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",

@@ -34,7 +34,7 @@ const Home = () => {
                 <nav className="navbar navbar-expand-lg econnecteeNavbar">
                     <div className="container-fluid">
                         <a className="navbar-brand text-white" href="/">
-                        SolidHRM
+                            Solid HRM
                         </a>
                         <button
                             className="navbar-toggler"
