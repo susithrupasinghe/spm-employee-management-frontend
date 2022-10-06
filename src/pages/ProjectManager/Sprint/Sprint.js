@@ -7,15 +7,40 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import moment from "moment";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import DatePicker from "react-datepicker";
+import 'react-notifications/lib/notifications.css';
 
 import "react-datepicker/dist/react-datepicker.css";
+
+
+
+const addSprint = async (id, fromdate, todate) => {
+
+
+  const result = await axios.put(`http://localhost:3001/api/project/addsprint/${id}`, {
+    fromDate: fromdate,
+    toDate: todate
+  });
+
+  if (result.status == 200) {
+
+    NotificationManager.success('Sprint created successfully !');
+  }
+  else {
+    NotificationManager.error('Sprint creation failed !');
+  }
+}
 
 const Header = (props) => {
 
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
+
+
+  const [startDate, setStartDate] = useState(moment().toDate());
+  const [endDate, setEndDate] = useState(new Date());
 
 
 
@@ -30,47 +55,64 @@ const Header = (props) => {
         justifyContent: "space-between",
       }}
     >
-      <Modal isOpen={modal} toggle={toggle}  style={{maxWidth: '600px', width: '100%'}}>
+      <Modal isOpen={modal} toggle={toggle} style={{ maxWidth: '600px', width: '100%' }}>
         <ModalHeader toggle={toggle}>Create Sprint</ModalHeader>
         <ModalBody>
-      
-        <h4>Sprint {props.count + 1}</h4>
+
+          <h4>Sprint {props.count + 1}</h4>
           <div class="container">
-          <div class="row">
-          <br />
-          <div className='col-6'>
-          <span>From</span>
-          </div>
-          <div className='col-6'>
-          <span>To</span>
-          </div>
-          
+            <div class="row">
+              <br />
+              <div className='col-6'>
+                <span>From</span>
+              </div>
+              <div className='col-6'>
+                <span>To</span>
+              </div>
+
             </div>
 
-          <div class="row">
-            <div className='col-6'>
-              <DatePicker
-                open={true}
-                inline
-              />
-            </div>
-            <div className='col-6'>
-              <DatePicker
-                open={true}
-                inline
-              />
-            </div>
+            <div class="row">
+              <div className='col-6'>
+                <DatePicker
+                  open={true}
+                  inline
+                  onChange={(date) => setStartDate(date)}
+                  selectsStart
+                  minDate={moment().toDate()}
+                  startDate={startDate}
+                  endDate={endDate}
+
+                />
+              </div>
+              <div className='col-6'>
+                <DatePicker
+                  open={true}
+                  inline
+                  onChange={(date) => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  minDate={startDate}
+                />
+              </div>
             </div>
           </div>
 
         </ModalBody>
         <ModalFooter>
-          <Button class="btn btn-dark" onClick={toggle}>
+          <Button class="btn btn-dark" onClick={()=> {
+            addSprint(props.id, startDate, endDate);
+            setTimeout(function () {
+              toggle();
+            }, 2000);
+            
+          }}>
             Add
           </Button>{' '}
 
         </ModalFooter>
       </Modal>
+      <NotificationContainer />
       <span className="display-6" style={{ fontWeight: "bold" }}>
         Sprint
       </span>
@@ -96,7 +138,23 @@ const Header = (props) => {
 };
 
 
+const addFeedback = async (id, feedback) => {
 
+  console.log(feedback);
+
+
+  const result = await axios.put(`http://localhost:3001/api/sprint/addFeedback/${id}`, {
+    feedback: feedback
+  });
+
+  if (result.status == 200) {
+
+    NotificationManager.success('Feedback inserted successfully !');
+  }
+  else {
+    NotificationManager.error('Feedback insertion failed !');
+  }
+}
 
 const SprintCard = (props) => {
   const [modalFeedback, setModalFeedback] = useState(false);
@@ -105,47 +163,65 @@ const SprintCard = (props) => {
   const toggleFeedback = () => setModalFeedback(!modalFeedback);
   return (
     <div class="card" style={{ borderRadius: "10px" }}>
-      <Modal isOpen={modalFeedback} toggle={toggleFeedback}>
+      <Modal isOpen={modalFeedback} toggle={toggleFeedback} style={{ maxWidth: '600px', width: '100%' }}>
         <ModalHeader toggle={toggleFeedback}>Add Feedback</ModalHeader>
         <ModalBody>
-          <form>
+          <form className='px-3'>
             <label>Add Feedback</label>
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea class="form-control" rows="6" id='feedback'></textarea>
           </form>
         </ModalBody>
         <ModalFooter>
-          <Button class="btn btn-dark" onClick={toggleFeedback}>
+          <Button class="btn btn-dark" onClick={() => {
+
+            const data = document.getElementById('feedback').value;
+
+            if (data == '') {
+              console.log("No content")
+              NotificationManager.warning('Please enter your feedback');
+            }
+            else {
+              addFeedback(props.id, data);
+              toggleFeedback();
+
+            }
+
+          }}>
             Add
           </Button>{' '}
-
+          
         </ModalFooter>
       </Modal>
-
+      <NotificationContainer />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div class="card-body">
           <h3 style={{ fontWeight: "bold" }}>Sprint {props.count}</h3>
           <span style={{ color: "gray" }}>
-            {props.start != null && props.start != undefined ? moment(props.start).utc().format('YYYY-MM-DD') : 'Data unavailable'} -
-            {props.end != null && props.end != undefined ? moment(props.end).utc().format('YYYY-MM-DD') : 'Data unavailable'}
+            {props.start != null && props.start != undefined ? moment(props.start).utc().format('YYYY-MM-DD') : ''} -
+            {props.end != null && props.end != undefined ? moment(props.end).utc().format('YYYY-MM-DD') : ''}
           </span>
         </div>
-        <div style={{ marginRight: "1rem", marginTop: "1rem" }}>
-          <button
-            type="button"
-            class="btn btn-dark"
-            style={{ padding: "8px 25px" }}
-            onClick={toggleFeedback}
-          >
-            Add Feedback
-          </button>
-          <button
-            type="button"
-            class="btn btn-dark"
-            style={{ padding: "8px 25px", marginLeft: "1.5rem" }}
-          >
-            Add Task
-          </button>
-        </div>
+        {props.isPrev != null || props.isPrev == undefined &&
+
+          <div style={{ marginRight: "1rem", marginTop: "1rem" }}>
+            <button
+              type="button"
+              class="btn btn-dark"
+              style={{ padding: "8px 25px" }}
+              onClick={toggleFeedback}
+            >
+              Add Feedback
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark"
+              style={{ padding: "8px 25px", marginLeft: "1.5rem" }}
+            >
+              Add Task
+            </button>
+          </div>
+        }
+
       </div>
       <div style={{ padding: "0 2rem" }}>
         <table class="table">
@@ -183,45 +259,6 @@ const SprintCard = (props) => {
 
               })
             }
-            {/* <tr>
-              <th scope="row"><FaCircle style={{ color: "red" }} /></th>
-              <td>Task1</td>
-              <td>Worker1</td>
-              <td>3 days</td>
-              <td>5 points</td>
-              <td>
-                <div>
-                  <AiFillSetting size={25} style={{ color: "#A80038", marginRight: "20px" }} />
-                  <IoIosRemoveCircle size={25} style={{ color: "#A80038" }} />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row"><FaCircle style={{ color: "red" }} /></th>
-              <td>Task1</td>
-              <td>Worker1</td>
-              <td>3 days</td>
-              <td>5 points</td>
-              <td>
-                <div>
-                  <AiFillSetting size={25} style={{ color: "#A80038", marginRight: "20px" }} />
-                  <IoIosRemoveCircle size={25} style={{ color: "#A80038" }} />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row"><FaCircle style={{ color: "red" }} /></th>
-              <td>Task1</td>
-              <td>Worker1</td>
-              <td>3 days</td>
-              <td>5 points</td>
-              <td>
-                <div>
-                  <AiFillSetting size={25} style={{ color: "#A80038", marginRight: "20px" }} />
-                  <IoIosRemoveCircle size={25} style={{ color: "#A80038" }} />
-                </div>
-              </td>
-            </tr> */}
           </tbody>
         </table>
 
@@ -321,22 +358,22 @@ const Sprint = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <Header count={sprintCount}/>
+              <Header count={sprintCount}  id={id}/>
             </div>
             {
               sprintCount >= 1 && TaskListPrev != null ?
                 <>
                   <div className="col-lg-12" style={{ marginTop: "2rem" }}>
-                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} />
+                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} id={project.sprintList[0]._id} />
                   </div>
                   <div className="col-lg-12" style={{ marginTop: "1.5rem" }}>
-                    <SprintCard tasks={TaskListPrev} />
+                    <SprintCard tasks={TaskListPrev} isPrev={true} count={sprintCount-1} />
                   </div>
                 </>
                 :
                 <>
                   <div className="col-lg-12" style={{ marginTop: "2rem" }}>
-                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} />
+                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} id={project.sprintList[0]._id} />
                   </div>
                 </>
 
@@ -355,7 +392,7 @@ const Sprint = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <Header count={0} />
+              <Header count={0} id={id}/>
             </div>
             {/* <div className="col-lg-12" style={{ marginTop: "2rem" }}>
               <SprintCard />
