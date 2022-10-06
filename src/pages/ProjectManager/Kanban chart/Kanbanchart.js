@@ -47,7 +47,7 @@ const Chart = () => {
       const result = axios.put(`http://localhost:5000/api/issue/${id}`, data);
       if (result) {
         console.log(result);
-        toggle();
+       
       }
     }
 
@@ -114,6 +114,17 @@ if (isLoaded) {
                     )
                   })} */}
                 <div class="col-sm-13" style={{marginTop: "1rem"}}>
+                    <div class="card" onClick={toggle}>
+                      <div class="card-body">
+                        <h5 class="card-title" style={{color: "#A80038"}}>Implementing the booking seats backend</h5>
+                            <hr/>
+                            <span style={{float: "right", color:"#FD0054"}}>Opened By</span>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  <div class="col-sm-13" style={{marginTop: "1rem"}}>
                     <div class="card" onClick={toggle}>
                       <div class="card-body">
                         <h5 class="card-title" style={{color: "#A80038"}}>Landing Page UI/UX</h5>
