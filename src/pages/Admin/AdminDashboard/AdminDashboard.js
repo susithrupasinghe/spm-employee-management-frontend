@@ -19,7 +19,7 @@ const CardSection = () => {
             <div className="row mt-4">
                 <div className="col-lg-4 p-3">
 
-                    <Link to="/employee/add">
+                    {/* <Link to="/employee/add"> */}
 
                     <Link to="/addemployee">
 

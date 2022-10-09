@@ -60,17 +60,9 @@ if (isLoaded) {
 
   return (
 
-    <div class="card" style={{borderRadius: "10px"}}>
-        <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>{}</ModalHeader>
-        <ModalBody>
-            <p>{issueList.description}</p>
-            <div><span style={{color: "#A80038"}}>Status - </span><span style={{color: "#A80038"}}>{issueList.progress}</span></div>
-            <div><span style={{color: "#A80038"}}>Assignee - </span><span style={{color: "#A80038"}}>Susith Rupasinghe</span></div>
-            <div><span style={{color: "#A80038"}}>Estimated time - </span><span style={{color: "#A80038"}}>{issueList.estimatedTime} Hours</span></div>
-=======
-    const toggle = () => setModal(!modal);
-  return (
+   
+    // const toggle = () => setModal(!modal);
+  // return (
     <div class="card" style={{borderRadius: "10px"}}>
         <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Landing Page UI/UX</ModalHeader>
@@ -104,6 +96,17 @@ if (isLoaded) {
 
         </ModalFooter>
       </Modal>
+      <div class="card" style={{borderRadius: "10px"}}>
+        <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>{}</ModalHeader>
+        <ModalBody>
+            <p>{issueList.description}</p>
+            <div><span style={{color: "#A80038"}}>Status - </span><span style={{color: "#A80038"}}>{issueList.progress}</span></div>
+            <div><span style={{color: "#A80038"}}>Assignee - </span><span style={{color: "#A80038"}}>Susith Rupasinghe</span></div>
+            <div><span style={{color: "#A80038"}}>Estimated time - </span><span style={{color: "#A80038"}}>{issueList.estimatedTime} Hours</span></div>
+            </ModalBody>
+            </Modal>
+            </div>
       <div class="card-body">
         <div class="row">
           <div class="col-sm-4">
@@ -281,6 +284,9 @@ if (isLoaded) {
         </div>
       </div>
     </div>
+    </div>
+    </div>
+    </div>
   );
 
                   }
@@ -309,3 +315,5 @@ const KanbanChart = () => {
 };
 
 export default KanbanChart;
+
+

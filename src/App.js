@@ -46,7 +46,7 @@ function App() {
       <Route excat path="/project/overview" element={< ProjectOverview/>} />
 
 
-      <Route excat path="/:name/kanban/:id" element={<KanbanChart />} />
+      {/* <Route excat path="/:name/kanban/:id" element={<KanbanChart />} /> */}
 
       </Routes>
     </Router>
