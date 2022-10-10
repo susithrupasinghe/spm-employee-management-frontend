@@ -30,7 +30,7 @@ const ModelPopUp = (props) => {
     const data = {
       projectName: projectName,
       descripton: descripton,
-      projectManager: projectManager,
+      projectManager: pmId,
     };
 
     try {
@@ -87,6 +87,7 @@ const ModelPopUp = (props) => {
                 defaultValue={props.project.projectManager.name}
                 onChange={(e) => {const data = e.target.value; setPmId(data)}}
               >
+                <option selected>{props.project.projectManager.name}</option>
                 {projectManager.map((pm) => (
                   <option value={pm._id}>{pm.name}</option>
                 ))}
