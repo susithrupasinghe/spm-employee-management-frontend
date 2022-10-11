@@ -27,7 +27,7 @@ const Projects = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:5000/api/project/all");
+      const result = await axios("http://localhost:3000/api/project/all");
       setProjects(result.data);
     };
     fetchData();
@@ -37,8 +37,8 @@ const Projects = () => {
 
   const navigate = useNavigate();
 
-  const handleKandban = (id) => {
-    navigate(`/${id}/kanban`, {
+  const handleKandban = (project) => {
+    navigate(`/${project._id}/kanban`, {
       state: {},
     });
   };
@@ -63,13 +63,16 @@ const Projects = () => {
         </div>
         <div>
           <Clock
-            style={{ marginLeft: "20px", color: "grey" , marginBottom:"50px"}}
+            style={{ marginLeft: "20px", color: "grey", marginBottom: "50px" }}
             format="YYYY/MM/DD:HH:mm:ss"
             interval={1000}
             ticking={true}
           />
         </div>
-        <div class="card" style={{background:"F2F2F2",width: 'rem',marginTop:"2.5%"}}>
+        <div
+          class="card"
+          style={{ background: "F2F2F2", width: "rem", marginTop: "2.5%" }}
+        >
           <div class="row">
             {projects.map((project) => (
               <div class="col-sm-3">
@@ -110,7 +113,7 @@ const Projects = () => {
                           color: "white",
                         }}
                       >
-                        1
+                        {project.sprintList ?  "4" :""}
                       </div>
                       <div
                         style={{
@@ -150,7 +153,7 @@ const Projects = () => {
                       class="btn btn-secondary"
                       style={{
                         padding: "5px 15px",
-                        borderBottomLeftRadius: "15%",
+                        borderBottomLeftRadius: "5%",
                         marginRight: "2px",
                       }}
                     >
@@ -161,7 +164,7 @@ const Projects = () => {
                       class="btn btn-secondary"
                       style={{
                         padding: "5px 25px",
-                        borderBottomRightRadius: "15%",
+                        borderBottomRightRadius: "5%",
                       }}
                       onClick={() => {
                         handleKandban(project._id);
@@ -175,7 +178,7 @@ const Projects = () => {
             ))}
 
             {/* </span> */}
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 gap: "3rem",
@@ -227,9 +230,9 @@ const Projects = () => {
               >
                 1
               </div>
-            </div>
+            </div> */}
           </div>
-          <div style={{ display: "flex" }}>
+          {/* <div style={{ display: "flex" }}>
             <button
               type="button"
               class="btn btn-secondary"
@@ -254,7 +257,7 @@ const Projects = () => {
             >
               Kanban Layout
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
