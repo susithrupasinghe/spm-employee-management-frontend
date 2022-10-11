@@ -22,6 +22,7 @@ import KanbanChart from "./pages/ProjectManager/Kanban chart/Kanbanchart";
 import AdminDashboardPage from "./pages/Admin/AdminDashboard/AdminDashboard";
 import AddDomentation from "./pages/EmployeeManagement/ProjectDocumentation/AddDocumentation"
 import ViewDomentation from "./pages/EmployeeManagement/ProjectDocumentation/ViewDocumentation"
+import RecruitEmployee from "./pages/ProjectManager/RecruitEmployee/RecruitEmployee";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
       <Route excat path="/project/overview" element={< ProjectOverview/>} />
       <Route excat path="/project/addDocumentation" element={< AddDomentation/>} />
       <Route excat path="/project/viewDocumentation" element={< ViewDomentation/>} />
+      <Route excat path="/pm/projectdashboard/:id/add" element={< RecruitEmployee/>} />
 
 
       {/* <Route excat path="/:name/kanban/:id" element={<KanbanChart />} /> */}

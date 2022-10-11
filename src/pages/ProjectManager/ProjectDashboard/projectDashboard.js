@@ -1,4 +1,4 @@
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import recruit from "../../../assets/ProjectManagementDashboard/recruit.svg";
 import sprint from "../../../assets/ProjectManagementDashboard/sprintManagement.svg";
 import evaluate from "../../../assets/ProjectManagementDashboard/evaluateProject.svg";
@@ -8,7 +8,7 @@ const Header = () => {
     const id = location.state.projectId;
     const noOfEmployee = location.state.onOfEmployee;
     const sprints = location.state.sprints;
-    console.log("title",title);
+    // console.log("title",title);
 
     return (
         <div className="text-center mt-5" style={{fontSize: "20px", color: "black", float: "right" }}>
@@ -22,10 +22,23 @@ const Header = () => {
 }
 
 const CardSection = () => {
-
+    const location = useLocation();
+    const navigate = useNavigate();
+    const title = location.state.projectName;
+    const id = location.state.projectId;
+    const noOfEmployee = location.state.onOfEmployee;
+    const sprints = location.state.sprints;
+    console.log("title",title);
+    const handleNavigate = () => {
+        navigate(`/pm/projectdashboard/${id}/add`, {
+            state: {
+                
+            }
+        })
+    }
     return (
         <div>
-            <div className="row mt-4">
+            <div className="row mt-4" onClick={handleNavigate}>
                 <div className="col-lg-4 p-3">
                     <Link to="/addemployee">
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
