@@ -28,19 +28,21 @@ const CardSection = () => {
     const id = location.state.projectId;
     const noOfEmployee = location.state.onOfEmployee;
     const sprints = location.state.sprints;
-    console.log("title",title);
-    const handleNavigate = () => {
+    const employeeList = location.state.employeeList;
+    console.log("title: ",title);
+    const employeeNavigate = () => {
         navigate(`/pm/projectdashboard/${id}/add`, {
             state: {
-                
+                title: title,
+                projectId: id,
+                employeeList: employeeList,
             }
         })
     }
     return (
         <div>
-            <div className="row mt-4" onClick={handleNavigate}>
+            <div className="row mt-4" onClick={employeeNavigate}>
                 <div className="col-lg-4 p-3">
-                    <Link to="/addemployee">
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardOne" style={{
                                  backgroundImage: `url(${recruit})`, backgroundSize: "cover", 
@@ -49,7 +51,6 @@ const CardSection = () => {
                          
                             </div>
                         </div>
-                    </Link>
                 </div>
                 <div className="col-lg-4 p-3">
                     <Link to="/pmlist">

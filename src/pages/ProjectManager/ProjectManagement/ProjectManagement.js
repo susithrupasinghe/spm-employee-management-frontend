@@ -37,6 +37,7 @@ const Header = () => {
           projectId: project._id,
           onOfEmployee: project.employeeList.length,
           sprints: project.sprintList.length,
+          employeeList: project.employeeList,
          },
       });
     }
