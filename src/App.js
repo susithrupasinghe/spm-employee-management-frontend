@@ -10,7 +10,7 @@ import './App.css';
 import AdminProjectManagement from "./pages/Admin/AdminProjectManagement/AdminProjectManagement";
 import ProjectDashboardPage from "./pages/ProjectManager/ProjectDashboard/projectDashboard";
 import ProjectManagement from "./pages/ProjectManager/ProjectManagement/ProjectManagement";
-import ProjectOverview from "./pages/Employee/ProjectOverview/ProjectOverview";
+import ProjectOverview from "./pages/EmployeeManagement/ProjectOverview/ProjectOverview";
 import LoginPage from "./pages/EmployeeManagement/EmployeeLoginPage/EmployeeLoginPage";
 import EmployeeDashboard from "./pages/EmployeeManagement/EmployeeDashboard/EmployeeDashboard";
 import AddEmployee from "./pages/EmployeeManagement/AddEmployee/AddEmployee";
@@ -20,6 +20,8 @@ import ProjectManagerDashboard from "./pages/ProjectManager/ProjectManagerDashbo
 import Sprint from "./pages/ProjectManager/Sprint/Sprint";
 import KanbanChart from "./pages/ProjectManager/Kanban chart/Kanbanchart";
 import AdminDashboardPage from "./pages/Admin/AdminDashboard/AdminDashboard";
+import AddDomentation from "./pages/EmployeeManagement/ProjectDocumentation/AddDocumentation"
+import ViewDomentation from "./pages/EmployeeManagement/ProjectDocumentation/ViewDocumentation"
 import RecruitEmployee from "./pages/ProjectManager/RecruitEmployee/RecruitEmployee";
 
 
@@ -45,6 +47,8 @@ function App() {
 
       <Route excat path="/:name/kanban" element={<KanbanChart />} />
       <Route excat path="/project/overview" element={< ProjectOverview/>} />
+      <Route excat path="/project/addDocumentation" element={< AddDomentation/>} />
+      <Route excat path="/project/viewDocumentation" element={< ViewDomentation/>} />
       <Route excat path="/pm/projectdashboard/:id/add" element={< RecruitEmployee/>} />
 
 
