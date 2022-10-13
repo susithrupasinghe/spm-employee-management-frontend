@@ -11,6 +11,7 @@
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.37",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-datepicker": "^4.8.0",
     "react-dater": "^1.6.0",
     "react-dom": "^18.2.0",
@@ -19,10 +20,12 @@
     "react-loader-spinner": "^5.3.4",
     "react-moment": "^1.1.2",
     "react-notifications": "^1.7.4",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
+    "react-tooltip": "^4.2.21",
     "reactstrap": "^9.1.4",
+    "table": "^6.8.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
