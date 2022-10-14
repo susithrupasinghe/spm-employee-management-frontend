@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const Header = () => {
@@ -6,8 +7,7 @@ const Header = () => {
     <div
       className="text-center mt-5"
       style={{ fontSize: "20px", color: "black", float: "right" }}
-    >
-    </div>
+    ></div>
   );
 };
 
@@ -20,7 +20,7 @@ const Add = async (event) => {
 
   try {
     const res = await axios.post(
-      `http://localhost:5000/api/documentation/addDocumentation?projectId=6174c1868706230016a66ab2`,
+      `http://localhost:3000/api/employee/register`,
       data
     );
     console.log(res);
@@ -31,8 +31,26 @@ const Add = async (event) => {
   //console.table(name,email,password,role,department,mobileNumber,rate)
 };
 
-const AddEmployeeForm = () => {
+const UpdateEmployeeForm = () => {
+  const { id } = useParams();
+  console.log(id);
+
   const [table, setTable] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [updatedocuments, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        "http://localhost:5000/api/documentation/readDocmentationByProject?id=6174c1868706230016a66ab2"
+      );
+      setProjects(result);
+      setLoading(false);
+      console.log(result);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div class="row" style={{ marginLeft: "20rem" }}>
@@ -72,13 +90,13 @@ const AddEmployeeForm = () => {
   );
 };
 
-const AddDocumentation = () => {
+const UpdateDocumentation = () => {
   return (
     <div>
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <AddEmployeeForm />
+            <UpdateEmployeeForm />
           </div>
           <div className="col-lg-12">
             <Header />
@@ -89,4 +107,4 @@ const AddDocumentation = () => {
   );
 };
 
-export default AddDocumentation;
+export default UpdateDocumentation;

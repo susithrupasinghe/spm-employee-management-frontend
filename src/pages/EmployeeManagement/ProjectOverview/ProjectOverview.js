@@ -48,8 +48,8 @@ const Projects = () => {
       });
     };
 
-    const handleKandban = (project) => {
-      navigate(`/${project._id}/kanban`, {
+    const handleKandban = (id) => {
+      navigate(`/${id}/kanban`, {
         state: {},
       });
     };
@@ -216,7 +216,7 @@ const Projects = () => {
                           borderBottomRightRadius: "5%",
                         }}
                         onClick={() => {
-                          // handleKandban(project._id);
+                          handleKandban(project._id);
                         }}
                       >
                         Kanban Layout
