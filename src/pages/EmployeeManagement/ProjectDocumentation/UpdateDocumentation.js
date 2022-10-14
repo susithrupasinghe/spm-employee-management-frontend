@@ -21,17 +21,17 @@ const UpdateEmployeeForm = () => {
   const [error, setError] = useState(false);
   const [updatedocuments, setProjects] = useState([]);
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const result = await axios(
-//         "http://localhost:5000/api/documentation/updateDetails?id=62f52ca972746d66e817aca5"
-//       );
-//       setProjects(result);
-//       setLoading(false);
-//       console.log(result);
-//     };
-//     fetchData();
-//   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        "http://localhost:5000/api/documentation/updateDetails?id=62f52ca972746d66e817aca5"
+      );
+      setProjects(result);
+      setLoading(false);
+      console.log(result);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div class="row" style={{ marginLeft: "20rem" }}>
@@ -39,7 +39,7 @@ const UpdateEmployeeForm = () => {
         <div class="card" style={{ borderRadius: "15px", marginTop: "5rem" }}>
           <div class="card-body">
             <h5 class="card-title" style={{ marginLeft: "13rem" }}>
-              Update Documentation
+              Edit Documentation
             </h5>
             <form style={{ marginTop: "1.5rem" }}>
               <input
