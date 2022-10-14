@@ -1,100 +1,143 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Input, AutoComplete } from "antd";
+import "./ViewDocumentation.css";
 import axios from "axios";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { Button, Tooltip } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
-// function getRandomInt(max, min = 0) {
-//   return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
-// }
+// const queryParams = new URLSearchParams(window.location.search);
+// const projectId = queryParams.get("id");
 
-// const searchResult = (query) =>
-//   new Array(getRandomInt(5))
-//     .join(".")
-//     .split(".")
-//     .map((item, idx) => {
-//       const category = `${query}${idx}`;
-//       return {
-//         value: category,
-//         label: (
-//           <div
-//             style={{
-//               display: "flex",
-//               justifyContent: "space-between",
-//             }}
-//           >
-//             <span>
-//               Found {query} on{" "}
-//               <a
-//                 href={`https://s.taobao.com/search?q=${query}`}
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//               >
-//                 {category}
-//               </a>
-//             </span>
-//             <span>{getRandomInt(200, 100)} results</span>
-//           </div>
-//         ),
-//       };
-//     });
+// console.log(projectId);
 
-const ViewEmployeeForm = () => {
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(false);
-  // const [data, setData] = useState();
-  // // const [table, setTable] = useState("");
+const ViewEmployeeDocument = () => {
 
-  const [options, setOptions] = useState([]);
+  const { id } = useParams()
+  console.log(id);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [documents, setProjects] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(
-        `http://localhost:5000/api/documentation/readDocmentationByProject`
+      const result = await axios(
+        "http://localhost:5000/api/documentation/readDocmentationByProject?id=6174c1868706230016a66ab2"
       );
-      // setIssueList(result.data);
-      console.log(result.data);
-      // setIsLoaded(true);
+      setProjects(result);
+      setLoading(false);
+      console.log(result);
     };
     fetchData();
   }, []);
 
-  // const handleSearch = (value) => {
-  //   setOptions(value ? searchResult(value) : []);
-  // };
+  const navigate = useNavigate();
 
-  // const onSelect = (value) => {
-  //   console.log("onSelect", value);
-  // };
+  const navigateAddDocumentation = (id) => {
+    navigate(`/project/addDocumentation/${id}`, {
+      state: {},
+    });
+  };
 
-  return (
-    <div class="row" style={{}}>
-      <div class="col-sm-4">
-        <h3
-          class="card-title"
-          style={{ marginLeft: "1rem", marginTop: "5rem" }}
-        >
-          Project Documentation
-        </h3>
-        <div class="card" style={{ borderRadius: "15px", marginTop: "5rem" }}>
-          <div class="card-body">
-            <ul>
-              
-            </ul>
-            {/* <AutoComplete
-              dropdownMatchSelectWidth={252}
-              style={{
-                width: 300,
-              }}
-              options={options}
-              onSelect={onSelect}
-              onSearch={handleSearch}
+  if (loading) {
+    return (
+      <>
+        <p>Data Loading</p>
+      </>
+    );
+  } else if (error) {
+    return (
+      <>
+        <p>Error: {error}</p>
+      </>
+    );
+  } else {
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState(false);
+    // const [data, setData] = useState();
+    // // const [table, setTable] = useState("");
+
+    // const handleSearch = (value) => {
+    //   setOptions(value ? searchResult(value) : []);
+    // };
+
+    // const onSelect = (value) => {
+    //   console.log("onSelect", value);
+    // };
+
+    return (
+      <div>
+        <div class="col-sm-4">
+          <h3
+            class="card-title"
+            style={{
+              marginLeft: "1rem",
+              marginTop: "5rem",
+              marginBottom: "2rem",
+            }}
+          >
+            Project Documentation
+          </h3>
+          {/* <Tooltip title="Add Documentation"> */}
+          <a>
+            <Button
+              class="btn pluss"
+              title="Add Document"
+              style={{ marginLeft: "15rem" }}
+              onClick={navigateAddDocumentation}
             >
-              <Input.Search size="large" placeholder="input here" enterButton />
-            </AutoComplete> */}
+              Add Documentation
+            </Button>
+            <h5 style={{ marginLeft: "1rem" }}>Documentations</h5>
+          </a>
+          {/* </Tooltip> */}
+
+          <div class="row">
+            <div class="card" style={{ borderRadius: "15px" }}>
+              <div class="card-body">
+                <div class="col-10">
+                  <div class="row">
+                    <div>
+                      {documents.data.Document.map((document) => (
+                        <div>
+                          <div class="list-group" id="list-tab" role="tablist">
+                            <a
+                              class="list-group-item list-group-item-action"
+                              id=""
+                              data-toggle="list"
+                              // href="#list-home"
+                              role="tab"
+                              aria-controls="home"
+                            >
+                              {document.documentationTitle}
+                            </a>
+                          </div>
+                          <div class="tab-content"></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-8"></div>
+              </div>
+            </div>
+
+            {/* <div class="col-10">
+              <div class="card" style={{ borderRadius: "15px" }}>
+                <div class="card-body">
+                  <h5>we</h5>
+                </div>
+              </div>
+            </div> */}
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 const ViewDocumentation = () => {
@@ -103,7 +146,7 @@ const ViewDocumentation = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <ViewEmployeeForm />
+            <ViewEmployeeDocument />
           </div>
           <div className="col-lg-12">{/* <Header /> */}</div>
         </div>

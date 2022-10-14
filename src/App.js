@@ -47,8 +47,8 @@ function App() {
 
       <Route excat path="/:name/kanban" element={<KanbanChart />} />
       <Route excat path="/project/overview" element={< ProjectOverview/>} />
-      <Route excat path="/project/addDocumentation" element={< AddDomentation/>} />
-      <Route excat path="/project/viewDocumentation" element={< ViewDomentation/>} />
+      <Route excat path="/project/addDocumentation/:id" element={< AddDomentation/>} />
+      <Route excat path="/project/viewDocumentation/:id" element={< ViewDomentation/>} />
       <Route excat path="/pm/projectdashboard/:id/add" element={< RecruitEmployee/>} />
 
 
