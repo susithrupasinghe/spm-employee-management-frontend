@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -11,8 +12,6 @@ const Header = () => {
   );
 };
 
-
- 
 const UpdateEmployeeForm = () => {
  const { id } = useParams();
   console.log(id);
@@ -22,17 +21,17 @@ const UpdateEmployeeForm = () => {
   const [error, setError] = useState(false);
   const [updatedocuments, setProjects] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        "http://localhost:5000/api/documentation/readDocmentationByProject?id=6174c1868706230016a66ab2"
-      );
-      setProjects(result);
-      setLoading(false);
-      console.log(result);
-    };
-    fetchData();
-  }, []);
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const result = await axios(
+//         "http://localhost:5000/api/documentation/updateDetails?id=62f52ca972746d66e817aca5"
+//       );
+//       setProjects(result);
+//       setLoading(false);
+//       console.log(result);
+//     };
+//     fetchData();
+//   }, []);
 
   return (
     <div class="row" style={{ marginLeft: "20rem" }}>
@@ -62,7 +61,7 @@ const UpdateEmployeeForm = () => {
                 class="btn btn-dark"
                 style={{ padding: "5px 40px" }}
               >
-                ADD
+                Edit
               </button>
             </form>
           </div>

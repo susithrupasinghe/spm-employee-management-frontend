@@ -23,7 +23,7 @@ import AdminDashboardPage from "./pages/Admin/AdminDashboard/AdminDashboard";
 import AddDomentation from "./pages/EmployeeManagement/ProjectDocumentation/AddDocumentation"
 import ViewDomentation from "./pages/EmployeeManagement/ProjectDocumentation/ViewDocumentation"
 import RecruitEmployee from "./pages/ProjectManager/RecruitEmployee/RecruitEmployee";
-import updateDocumentation from "./pages/EmployeeManagement/ProjectDocumentation/UpdateDocumentation"
+import UpdateDocumentation from "./pages/EmployeeManagement/ProjectDocumentation/UpdateDocumentation"
 
 
 function App() {
@@ -51,7 +51,7 @@ function App() {
       <Route excat path="/project/addDocumentation/:id" element={< AddDomentation/>} />
       <Route excat path="/project/viewDocumentation/:id" element={< ViewDomentation/>} />
       <Route excat path="/pm/projectdashboard/:id/add" element={< RecruitEmployee/>} />
-      <Route excat path="/project/updateDocumentation/:id" element={<updateDocumentation/>}/>
+      <Route excat path="/project/updateDocumentation/:id" element={<UpdateDocumentation/>}/>
 
 
       {/* <Route excat path="/:name/kanban/:id" element={<KanbanChart />} /> */}

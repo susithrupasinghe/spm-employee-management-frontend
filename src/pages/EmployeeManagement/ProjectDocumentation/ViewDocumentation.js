@@ -56,26 +56,26 @@ const ViewEmployeeDocument = () => {
     });
   };
 
-  const readDocument = (docDescrition) => {
-    // console.log(docDescrition);
-    return (
-      <div class="list-group" id="list-tab" role="tablist">
-        <a
-          class="list-group-item list-group-item-action"
-          id=""
-          data-toggle="list"
-          // href="#list-home"
-          role="tab"
-          aria-controls="home"
-          onClick={() => {
-            // readDocument(document.documentationDescription);
-          }}
-        >
-          {/* {document.documentationTitle} */}
-        </a>
-      </div>
-    );
-  };
+  // const readDocument = (docDescrition) => {
+  //   // console.log(docDescrition);
+  //   return (
+  //     <div class="list-group" id="list-tab" role="tablist">
+  //       <a
+  //         class="list-group-item list-group-item-action"
+  //         id=""
+  //         data-toggle="list"
+  //         // href="#list-home"
+  //         role="tab"
+  //         aria-controls="home"
+  //         onClick={() => {
+  //           // readDocument(document.documentationDescription);
+  //         }}
+  //       >
+  //         {/* {document.documentationTitle} */}
+  //       </a>
+  //     </div>
+  //   );
+  // };
 
   if (loading) {
     return (
@@ -140,35 +140,6 @@ const ViewEmployeeDocument = () => {
                               <th scope="row">{document.documentationTitle}</th>
 
                               <td>
-                                {/* <button
-                                  type="button"
-                                  class="btn btn-secondary"
-                                  style={{
-                                    padding: "5px 15px",
-                                    borderBottomLeftRadius: "5%",
-                                    marginRight: "2px",
-                                  }}
-                                  onClick={() => {
-                                    toggleDrawer(document._id);
-                                  }}
-                                >
-                                  Documentation
-                                </button> */}
-
-                                {/* <button
-                                  type="button"
-                                  class="btn btn-secondary"
-                                  style={{
-                                    padding: "5px 15px",
-                                    borderBottomLeftRadius: "5%",
-                                    marginRight: "2px",
-                                  }}
-                                  onClick={() => {
-                                    deleteDocument(document._id);
-                                  }}
-                                >
-                                  Documentation
-                                </button> */}
                                 <div>
                                   <AiOutlineMore
                                     size={25}
