@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { Input, AutoComplete } from "antd";
 import "./ViewDocumentation.css";
 import axios from "axios";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
 import { Button, Tooltip } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
