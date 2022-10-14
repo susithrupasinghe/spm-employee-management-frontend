@@ -76,19 +76,7 @@ const Projects = () => {
         <p>Error: {error}</p>
       </>
     );
-  } else {
-    // const empProject = projects.payload.map((response) => {
-
-    //   console.log(response)
-    //   return {
-    //     _id: response._id,
-    //     projectName: response.projectName,
-    //     projectManager: response.projectManager,
-    //   }
-    // })
-
-    
- 
+  } else { 
     return (
       <div class="card" style={{ marginTop: "2rem" }}>
         <div class="card-body">

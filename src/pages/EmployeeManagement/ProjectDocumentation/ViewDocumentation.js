@@ -31,7 +31,7 @@ const ViewEmployeeDocument = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        "http://localhost:5000/api/documentation/readDocmentationByProject?id=6174c1868706230016a66ab2"
+        `http://localhost:5000/api/documentation/readDocmentationByProject?id=${id}`
       );
       setProjects(result);
       setLoading(false);
@@ -137,7 +137,7 @@ const ViewEmployeeDocument = () => {
                         {documents.data.Document.map((document) => (
                           <tbody>
                             <tr>
-                              <th scope="row">{document.documentationTitle}</th>
+                              <td scope="row">{document.documentationTitle}</td>
 
                               <td>
                                 <div>
