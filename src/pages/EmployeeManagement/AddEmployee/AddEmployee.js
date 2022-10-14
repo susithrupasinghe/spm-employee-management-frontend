@@ -8,21 +8,6 @@ const Header = () => {
       className="text-center mt-5"
       style={{ fontFamily: "Inter", fontSize: "20px", color: "grey" }}
     >
-      {/* <div style={{ float: "right" }}>
-        <div class="input-group">
-          <div class="form-outline">
-            <input type="text" class="form-control" />
-          </div>
-          <button
-            type="button"
-            class="btn btn-primary"
-            style={{ height: "38px" }}
-          >
-            <i class="fas fa-search"></i>
-            <AiOutlineSearch />
-          </button>
-        </div>
-      </div> */}
     </div>
   );
 };
