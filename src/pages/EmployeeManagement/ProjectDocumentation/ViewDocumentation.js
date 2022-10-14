@@ -1,10 +1,11 @@
+import React from "react";
 import { useEffect, useState } from "react";
+import { AiOutlineDelete, AiOutlineMore, AiOutlineEdit } from "react-icons/ai";
 import { useParams } from "react-router-dom";
-import { Input, AutoComplete } from "antd";
+// import { Modal } from "antd";
 import "./ViewDocumentation.css";
 import axios from "axios";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
 import { Button, Tooltip } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -13,14 +14,19 @@ import { useNavigate } from "react-router-dom";
 
 // console.log(projectId);
 
-const ViewEmployeeDocument = () => {
+const { confirm } = Modal;
 
-  const { id } = useParams()
-  console.log(id);
+const ViewEmployeeDocument = () => {
+  // const state = { visible: false };
+
+  const { id } = useParams();
+  // console.log(id);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [documents, setProjects] = useState([]);
+
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,10 +35,12 @@ const ViewEmployeeDocument = () => {
       );
       setProjects(result);
       setLoading(false);
-      console.log(result);
+      // console.log(result);
     };
     fetchData();
   }, []);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const navigate = useNavigate();
 
@@ -41,6 +49,33 @@ const ViewEmployeeDocument = () => {
       state: {},
     });
   };
+
+  const navigateUpdateDocumentation = (id) => {
+    navigate(`/project/updateDocumentation/${id}`, {
+      state: {},
+    });
+  };
+
+  // const readDocument = (docDescrition) => {
+  //   // console.log(docDescrition);
+  //   return (
+  //     <div class="list-group" id="list-tab" role="tablist">
+  //       <a
+  //         class="list-group-item list-group-item-action"
+  //         id=""
+  //         data-toggle="list"
+  //         // href="#list-home"
+  //         role="tab"
+  //         aria-controls="home"
+  //         onClick={() => {
+  //           // readDocument(document.documentationDescription);
+  //         }}
+  //       >
+  //         {/* {document.documentationTitle} */}
+  //       </a>
+  //     </div>
+  //   );
+  // };
 
   if (loading) {
     return (
@@ -55,19 +90,6 @@ const ViewEmployeeDocument = () => {
       </>
     );
   } else {
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(false);
-    // const [data, setData] = useState();
-    // // const [table, setTable] = useState("");
-
-    // const handleSearch = (value) => {
-    //   setOptions(value ? searchResult(value) : []);
-    // };
-
-    // const onSelect = (value) => {
-    //   console.log("onSelect", value);
-    // };
-
     return (
       <div>
         <div class="col-sm-4">
@@ -86,12 +108,14 @@ const ViewEmployeeDocument = () => {
             <Button
               class="btn pluss"
               title="Add Document"
-              style={{ marginLeft: "15rem" }}
-              onClick={navigateAddDocumentation}
+              style={{ marginLeft: "15rem", marginBottom: "2rem" }}
+              onClick={() => {
+                navigateAddDocumentation(id);
+              }}
             >
               Add Documentation
             </Button>
-            <h5 style={{ marginLeft: "1rem" }}>Documentations</h5>
+            {/* <h5 style={{ marginLeft: "1rem" }}>Documentations</h5> */}
           </a>
           {/* </Tooltip> */}
 
@@ -101,23 +125,61 @@ const ViewEmployeeDocument = () => {
                 <div class="col-10">
                   <div class="row">
                     <div>
-                      {documents.data.Document.map((document) => (
-                        <div>
-                          <div class="list-group" id="list-tab" role="tablist">
-                            <a
-                              class="list-group-item list-group-item-action"
-                              id=""
-                              data-toggle="list"
-                              // href="#list-home"
-                              role="tab"
-                              aria-controls="home"
-                            >
-                              {document.documentationTitle}
-                            </a>
-                          </div>
-                          <div class="tab-content"></div>
-                        </div>
-                      ))}
+                      <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Documentation Name</th>
+                            <th scope="col">Actions</th>
+                          </tr>
+                        </thead>
+
+                        {/* </table> */}
+                        {documents.data.Document.map((document) => (
+                          <tbody>
+                            <tr>
+                              <th scope="row">{document.documentationTitle}</th>
+
+                              <td>
+                                <div>
+                                  <AiOutlineMore
+                                    size={25}
+                                    style={{
+                                      color: "#A80038",
+                                      marginRight: "20px",
+                                    }}
+                                    onClick={() => {}}
+                                  />
+                                  <a>
+                                    <AiOutlineEdit
+                                      size={25}
+                                      style={{
+                                        color: "#A80038",
+                                        marginRight: "20px",
+                                      }}
+                                      onClick={() => {
+                                        navigateUpdateDocumentation(
+                                          document._id
+                                        );
+                                      }}
+                                    />
+                                  </a>
+                                </div>
+
+                                {/* <AiOutlineDelete
+                                  size={25}
+                                  style={{
+                                    color: "#A80038",
+                                    marginRight: "20px",
+                                  }}
+                                  onClick={() => {
+                                    deleteDocument(document._id);
+                                  }}
+                                /> */}
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))}
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -125,14 +187,6 @@ const ViewEmployeeDocument = () => {
                 <div class="col-8"></div>
               </div>
             </div>
-
-            {/* <div class="col-10">
-              <div class="card" style={{ borderRadius: "15px" }}>
-                <div class="card-body">
-                  <h5>we</h5>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
