@@ -11,28 +11,10 @@ const Header = () => {
   );
 };
 
-const Add = async (event) => {
-  event.preventDefault();
-  const documentName = event.target.documentName.value;
-  const documentDiscription = event.target.documentDiscription.value;
 
-  const data = {};
-
-  try {
-    const res = await axios.post(
-      `http://localhost:3000/api/employee/register`,
-      data
-    );
-    console.log(res);
-  } catch (error) {
-    console.log(error);
-  }
-
-  //console.table(name,email,password,role,department,mobileNumber,rate)
-};
-
+ 
 const UpdateEmployeeForm = () => {
-  const { id } = useParams();
+ const { id } = useParams();
   console.log(id);
 
   const [table, setTable] = useState("");
@@ -58,9 +40,9 @@ const UpdateEmployeeForm = () => {
         <div class="card" style={{ borderRadius: "15px", marginTop: "5rem" }}>
           <div class="card-body">
             <h5 class="card-title" style={{ marginLeft: "13rem" }}>
-              Add Documentation
+              Update Documentation
             </h5>
-            <form onSubmit={Add} style={{ marginTop: "1.5rem" }}>
+            <form style={{ marginTop: "1.5rem" }}>
               <input
                 type="text"
                 name="documentName"

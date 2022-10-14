@@ -20,7 +20,7 @@ const ViewEmployeeDocument = () => {
   // const state = { visible: false };
 
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -35,7 +35,7 @@ const ViewEmployeeDocument = () => {
       );
       setProjects(result);
       setLoading(false);
-      console.log(result);
+      // console.log(result);
     };
     fetchData();
   }, []);
@@ -57,7 +57,7 @@ const ViewEmployeeDocument = () => {
   };
 
   const readDocument = (docDescrition) => {
-    console.log(docDescrition);
+    // console.log(docDescrition);
     return (
       <div class="list-group" id="list-tab" role="tablist">
         <a
@@ -109,7 +109,9 @@ const ViewEmployeeDocument = () => {
               class="btn pluss"
               title="Add Document"
               style={{ marginLeft: "15rem", marginBottom: "2rem" }}
-              onClick={navigateAddDocumentation}
+              onClick={() => {
+                navigateAddDocumentation(id);
+              }}
             >
               Add Documentation
             </Button>
@@ -174,20 +176,22 @@ const ViewEmployeeDocument = () => {
                                       color: "#A80038",
                                       marginRight: "20px",
                                     }}
-                                    onClick={() => {
-                                      
-                                    }}
+                                    onClick={() => {}}
                                   />
-                                  <AiOutlineEdit
-                                    size={25}
-                                    style={{
-                                      color: "#A80038",
-                                      marginRight: "20px",
-                                    }}
-                                    onClick={() => {
-                                      navigateUpdateDocumentation(document._id);
-                                    }}
-                                  />
+                                  <a>
+                                    <AiOutlineEdit
+                                      size={25}
+                                      style={{
+                                        color: "#A80038",
+                                        marginRight: "20px",
+                                      }}
+                                      onClick={() => {
+                                        navigateUpdateDocumentation(
+                                          document._id
+                                        );
+                                      }}
+                                    />
+                                  </a>
                                 </div>
 
                                 {/* <AiOutlineDelete
