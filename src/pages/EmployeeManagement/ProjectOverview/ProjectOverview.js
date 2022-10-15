@@ -48,21 +48,27 @@ const Projects = () => {
       });
     };
 
+    // const navigateKanban = (id) => {
+    //   navigate(`/project/viewDocumentation/${id}`, {
+    //     state: {},
+    //   });
+    // };
+
     const handleKandban = (id) => {
-      navigate(`/${id}/kanban`, {
+      navigate(`/kanban/${id}`, {
         state: {},
       });
     };
 
-    const navigateDashboard = (project) => {
-      navigate(`/:name/kanban/${project._id}`, {
-        state: {
-          projectName: project.projectName,
-          projectId: project._id,
-          projectManager: project.projectManager,
-        },
-      });
-    };
+    // const navigateDashboard = (project) => {
+    //   navigate(`/:name/kanban/${project._id}`, {
+    //     state: {
+    //       projectName: project.projectName,
+    //       projectId: project._id,
+    //       projectManager: project.projectManager,
+    //     },
+    //   });
+    // };
 
   if (loading) {
     return (
@@ -76,19 +82,7 @@ const Projects = () => {
         <p>Error: {error}</p>
       </>
     );
-  } else {
-    // const empProject = projects.payload.map((response) => {
-
-    //   console.log(response)
-    //   return {
-    //     _id: response._id,
-    //     projectName: response.projectName,
-    //     projectManager: response.projectManager,
-    //   }
-    // })
-
-    
- 
+  } else { 
     return (
       <div class="card" style={{ marginTop: "2rem" }}>
         <div class="card-body">
