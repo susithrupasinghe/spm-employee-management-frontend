@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import {GoDiffAdded} from "react-icons/go";
+import {GoDiffRemoved} from "react-icons/go";
 const Header = () => {
   return (
     <div
@@ -20,19 +21,36 @@ const Employees = () => {
   const [projectId, setProjectId ] = useState("");
   const [title, setTitle] = useState("");
   const [employeeList, setEmployeeList] = useState([]);
+  const [allEmployeeList, setAllEmployeeList] = useState([]);
   const marketingEmployees = employeeList.filter((employee) => employee.department === "marketing");
   const developmentEmployees = employeeList.filter((employee) => employee.department === "development");
   const testingEmployees = employeeList.filter((employee) => employee.department === "testing");
+  const allMarketingEmployees = allEmployeeList.filter((employee) => employee.department === "marketing");
+  const allDevelopmentEmployees = allEmployeeList.filter((employee) => employee.department === "development");
+  const allTestingEmployees = allEmployeeList.filter((employee) => employee.department === "testing");
   useEffect(() => {
     const fetchData = async () => {
       setProjectId(location.state.projectId);
       setTitle(location.state.title);
       setEmployeeList(location.state.employeeList);
-      axios.get("")
+      axios.get("http://localhost:5000/api/employee/all")
+      .then((result) => {
+        setAllEmployeeList(result.data);
+      })
     }
     fetchData();
   },[]);
-  console.log(employeeList);
+  console.log(allEmployeeList);
+
+  const addEmployeeToProject = (id) => {
+    const employee = axios.put(`http://localhost:5000/api/project/addemp/${projectId}`, {
+      _id: id
+    });
+    if (employee) {
+      alert("Employee added to project");
+      window.location.reload();
+    }
+  }
 
   return(
     <>
@@ -43,10 +61,21 @@ const Employees = () => {
             <div className="row">
               <div className="col-lg-12">
                 <h3>Marketing</h3>
-                <div className="flex">
+                <div className="d-flex justify-content-between">
                 <span>employee</span>
+                <GoDiffAdded/>
+
                   {marketingEmployees.map((employee) => (
-                    <span>{employee}</span>
+                    <div className="d-flex justify-content-between">
+                      <span>{employee}</span>
+                      <GoDiffRemoved/>
+                    </div>
+                  ))}
+                  {allMarketingEmployees.map((employee) => (
+                    <div className="d-flex justify-content-between">
+                      <span>{employee.firstName}</span>
+                      <GoDiffAdded/>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -62,6 +91,20 @@ const Employees = () => {
             <div className="row">
               <div className="col-lg-12">
               <h3>Development</h3>
+              <div className="">
+                  {developmentEmployees.map((employee) => (
+                    <div className="d-flex justify-content-between">
+                      <span>{employee}</span>
+                      <GoDiffRemoved/>
+                    </div>
+                  ))}
+                  {allDevelopmentEmployees.map((employee) => (
+                    <div className="d-flex justify-content-between">
+                      <span>{employee.firstName} {employee.lastName}</span>
+                      <GoDiffAdded/>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -75,6 +118,22 @@ const Employees = () => {
             <div className="row">
               <div className="col-lg-12">
               <h3>Testing</h3>
+              <div className="d-flex justify-content-between">
+                <span>employee</span>
+                <GoDiffAdded/>
+                  {marketingEmployees.map((employee) => (
+                    <div className="d-flex justify-content-between">
+                      <span>{employee}</span>
+                      <GoDiffRemoved/>
+                    </div>
+                  ))}
+                  {allMarketingEmployees.map((employee) => (
+                    <div className="d-flex justify-content-between">
+                      <span>{employee.firstName}</span>
+                      <GoDiffAdded/>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

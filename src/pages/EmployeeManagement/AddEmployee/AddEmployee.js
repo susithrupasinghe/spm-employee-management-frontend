@@ -1,14 +1,14 @@
 import { AiOutlineSearch } from "react-icons/ai";
-import { MdDelete } from "react-icons/md";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AiOutlineDelete, } from "react-icons/ai";
 const Header = () => {
   return (
     <div
       className="text-center mt-5"
       style={{ fontFamily: "Inter", fontSize: "20px", color: "grey" }}
     >
-      <div style={{ float: "right" }}>
+      {/* <div style={{ float: "right" }}>
         <div class="input-group">
           <div class="form-outline">
             <input type="text" class="form-control" />
@@ -22,9 +22,21 @@ const Header = () => {
             <AiOutlineSearch />
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
+};
+
+const Delete = async (id) =>{
+  try {
+    const res = await axios.delete(
+      `http://localhost:5000/api/employee/${id}`,
+    );
+    console.log(res);
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const Add = async (event) =>{
@@ -36,15 +48,15 @@ const Add = async (event) =>{
     const department =event.target.department.value;
     const mobileNumber =event.target.mobileNumber.value;
     const rate =event.target.rate.value;
-
    const data ={
     name:name,
-    username:"aaa",
+    username:name,
     email:email, 
     password:password, 
     mobileNumber:mobileNumber, 
     department:department, 
-    rate:rate 
+    rate:rate,
+    role:role, 
    };
 
    try {
@@ -53,22 +65,90 @@ const Add = async (event) =>{
       data
     );
     console.log(res);
+    window.location.reload();
   } catch (error) {
     console.log(error);
   }
-
-
-
-    //console.table(name,email,password,role,department,mobileNumber,rate)
+  
 };
 
+const EmployeeTable =() =>{
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [employee, setEmployee] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(
+        "http://localhost:5000/api/employee/all"
+      );
+      setEmployee(result.data);
+      setLoading(false);
+      console.log(result.data.username);
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+        <p>Data Loading</p>
+      </>
+    );
+  } else if (error) {
+    return (
+      <>
+        <p>Error: {error}</p>
+      </>
+    );
+  } else {
+    return (
+      <div>
+                      <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">UserName</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Delete</th>
+                          </tr>
+                        </thead>
+
+                        {/* </table> */}
+                        {employee.map((employee) => (
+                          <tbody>
+                            <tr>
+                              <td >{employee.username}</td>
+                              <td >{employee.email}</td>
+                              <td >{employee.department}</td>
+                              <td>
+                                <div>
+                                <a>
+                                <AiOutlineDelete
+                                  size={25}
+                                  style={{
+                                    color: "#A80038",
+                                    marginRight: "20px",
+                                  }}
+                                  onClick={() => {
+                                    Delete(employee._id);
+                                  }}
+                                />
+                                </a>
+                                </div>
+
+                                
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))}
+                      </table>
+                    </div>
+    )
+  } 
+};
 const AddEmployeeForm = () => {
-
-  const[table,setTable] = useState("");
-
-
-
-
+  
   return (
     <div class="row">
       <div class="col-sm-4">
@@ -145,41 +225,13 @@ const AddEmployeeForm = () => {
       <div class="col-sm-8">
         <div class="card" style={{ borderRadius: "15px" }}>
           <div class="card-body">
-            <table class="table">
-              <thead class="table-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Department</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>
-                    <MdDelete size={25} style={{ color: "#A80038" }} />
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>
-                    <MdDelete size={25} style={{ color: "#A80038" }} />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <EmployeeTable/>
+            <div>
             <button type="button" class="btn btn-dark" style={{float: "right", padding:"5px 30px"}}>Generate</button>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
