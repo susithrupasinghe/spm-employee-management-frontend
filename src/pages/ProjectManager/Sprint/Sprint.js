@@ -9,6 +9,7 @@ import axios from 'axios';
 import moment from "moment";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import DatePicker from "react-datepicker";
+import { Link } from 'react-router-dom';
 import 'react-notifications/lib/notifications.css';
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -212,13 +213,15 @@ const SprintCard = (props) => {
             >
               Add Feedback
             </button>
-            <button
+            <Link
+              to={`/${props.id}/issues`}
+              state={{ project_id: props.project_id }}
               type="button"
               class="btn btn-dark"
               style={{ padding: "8px 25px", marginLeft: "1.5rem" }}
             >
               Add Task
-            </button>
+            </Link>
           </div>
         }
 
@@ -364,7 +367,7 @@ const Sprint = () => {
               sprintCount >= 1 && TaskListPrev != null ?
                 <>
                   <div className="col-lg-12" style={{ marginTop: "2rem" }}>
-                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} id={project.sprintList[0]._id} />
+                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} id={project.sprintList[0]._id} project_id={id} />
                   </div>
                   <div className="col-lg-12" style={{ marginTop: "1.5rem" }}>
                     <SprintCard tasks={TaskListPrev} isPrev={true} count={sprintCount-1} />
@@ -373,7 +376,7 @@ const Sprint = () => {
                 :
                 <>
                   <div className="col-lg-12" style={{ marginTop: "2rem" }}>
-                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} id={project.sprintList[0]._id} />
+                    <SprintCard tasks={TaskListLast} start={fromDateLast} end={toDateLast} count={sprintCount} id={project.sprintList[0]._id} project_id={id}/>
                   </div>
                 </>
 
