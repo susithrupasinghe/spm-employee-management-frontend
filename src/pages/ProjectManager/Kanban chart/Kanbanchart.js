@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { GrFormAdd, AiOutlineMore, AiOutlineEdit } from "react-icons/gr";
 import { FaCircle } from "react-icons/fa";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
@@ -18,7 +18,8 @@ const Chart = () => {
 
   const toggle = (props) => setModal(!modal);
 
-  const [issueList, setIssueList] = useState();
+  const [dotoissueList, setIssueList] = useState();
+  const [inprogressissueList, setInprogressIssueList] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const id = window.location.pathname.split("/")[1];
   console.log(id);
@@ -26,7 +27,9 @@ const Chart = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(`http://localhost:5000/api/issue/${id}`);
+      const result = await axios.get(
+        "http://localhost:5000/api/issue/issueTodo/6174c1868706230016a66ab2"
+      );
       setIssueList(result.data);
       console.log(result.data);
       setIsLoaded(true);
@@ -34,15 +37,27 @@ const Chart = () => {
     fetchData();
   }, []);
 
+  // const fetchData = async () => {
+  //   const result = await axios.get(
+  //     "http://localhost:5000/api/issue/issueTodo/6174c1868706230016a66ab2"
+  //   );
+  //   setInprogressIssueList(result.data);
+  //   console.log(result.data);
+  //   setIsLoaded(true);
+  // };
+  // fetchData();
+
+  console.log(dotoissueList);
+
   const hadleHours = (e) => {
     e.preventDefault();
     const data = {
-      issueName: issueList.issueName,
-      description: issueList.description,
-      points: issueList.points,
-      assignee: issueList.assignee,
-      progress: issueList.progress,
-      estimatedTime: parseInt(hours) + parseInt(issueList.estimatedTime),
+      issueName: dotoissueList.issueName,
+      description: dotoissueList.description,
+      points: dotoissueList.points,
+      assignee: dotoissueList.assignee,
+      progress: dotoissueList.progress,
+      estimatedTime: parseInt(hours) + parseInt(dotoissueList.estimatedTime),
     };
 
     const result = axios.put(`http://localhost:5000/api/issue/${id}`, data);
@@ -51,15 +66,11 @@ const Chart = () => {
     }
   };
 
-  console.log(issueList);
-
   if (isLoaded) {
     return (
-      // const toggle = () => setModal(!modal);
-      // return (
       <div class="card" style={{ borderRadius: "10px" }}>
         <Modal isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Landing Page UI/UX</ModalHeader>
+          <ModalHeader toggle={toggle}>Implement the login ui</ModalHeader>
           <ModalBody>
             <p>
               All online experiences should end in action, and landing pages are
@@ -87,9 +98,10 @@ const Chart = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <form onSubmit={hadleHours}>
+            {/* <form onSubmit={hadleHours}>
               <div class="form-group">
                 <input
+                  required
                   type="num"
                   class="form-control"
                   id="exampleInputEmail1"
@@ -98,47 +110,82 @@ const Chart = () => {
                   placeholder="Add Hours"
                 />
               </div>{" "}
-              <Button type="submit" class="btn btn-dark" onClick={toggle}>
-                Add to time log
-              </Button>
-            </form>
-            <Button class="btn btn-secondary" onClick={toggle}>
-              5h
-            </Button>{" "}
-            <Button class="btn btn-dark" onClick={toggle}>
+            </form> */}
+            {/* <Button class="btn btn-dark" onClick={toggle}>
               Add to time log
-            </Button>
+            </Button> */}
           </ModalFooter>
         </Modal>
-        <div class="card" style={{ borderRadius: "10px" }}>
-          <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>{}</ModalHeader>
-            <ModalBody>
-              <p>{issueList.description}</p>
-              <div>
-                <span style={{ color: "#A80038" }}>Status - </span>
-                <span style={{ color: "#A80038" }}>{issueList.progress}</span>
+        <div class="card" style={{ borderRadius: "10px" }}></div>
+        <div class="row">
+          <div class="col">
+            <div class="card-body">
+              <div style={{ display: "flex" }}>
+                <FaCircle size={40} style={{ color: "red" }} />
+                <h5
+                  class="card-title"
+                  style={{
+                    fontWeight: "bold",
+                    marginLeft: "1rem",
+                    fontSize: "2rem",
+                  }}
+                >
+                  To do
+                </h5>
               </div>
+
               <div>
-                <span style={{ color: "#A80038" }}>Assignee - </span>
-                <span style={{ color: "#A80038" }}>Susith Rupasinghe</span>
+                {dotoissueList.Issue.map((dotoList) => (
+                  <div class="col-sm-13" style={{ marginTop: "1rem" }}>
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="col" style={{ marginTop: "1rem" }}>
+                          <div>
+                            <div class="card">
+                              <div class="card-body">
+                                <h5
+                                  class="card-title"
+                                  style={{ color: "#A80038" }}
+                                >
+                                  {dotoList.description}
+                                </h5>
+                                <hr />
+                                <span
+                                  style={{
+                                    float: "right",
+                                    color: "#FD0054",
+                                  }}
+                                  onClick={toggle}
+                                >
+                                  Opened By
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <a>
+                            <GrFormAdd
+                              size={25}
+                              style={{
+                                color: "#A80038",
+                                marginRight: "100px",
+                              }}
+                              onClick={() => {}}
+                            />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div>
-                <span style={{ color: "#A80038" }}>Estimated time - </span>
-                <span style={{ color: "#A80038" }}>
-                  {issueList.estimatedTime} Hours
-                </span>
-              </div>
-            </ModalBody>
-          </Modal>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-4">
+            </div>
+          </div>
+          <div class="col">
+            <div class="card-body">
               <div class="card" style={{ borderRadius: "10px" }}>
                 <div class="card-body">
                   <div style={{ display: "flex" }}>
-                    <FaCircle size={40} style={{ color: "red" }} />
+                    <FaCircle size={40} style={{ color: "orange" }} />
                     <h5
                       class="card-title"
                       style={{
@@ -147,223 +194,56 @@ const Chart = () => {
                         fontSize: "2rem",
                       }}
                     >
-                      To do
+                      In Progress
                     </h5>
                   </div>
                   <div>
-                    {/* {projects[9].sprintList[0].toDoList.map((item) => {
-                    return (
-                      <div class="col-sm-13" style={{marginTop: "1rem"}}>
-
-                  <div class="col-sm-13" style={{marginTop: "1rem", }}>
-
-                    <div class="card" onClick={toggle}>
-                      <div class="card-body">
-                        <h5 class="card-title" style={{color: "#A80038"}}>Landing Page UI/UX</h5>
-                            <hr/>
-                            <span style={{float: "right", color:"#FD0054"}}>Opened By</span>
-                      </div>
-                      
-                    </div>
-                  </div>
-
-                    )
-                  })} */}
-                    <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                      <div class="card" onClick={toggle}>
+                    <div class="col" style={{ marginTop: "1rem" }}>
+                      <div class="card">
                         <div class="card-body">
                           <h5 class="card-title" style={{ color: "#A80038" }}>
-                            Implementing the booking seats backend
+                            {/* {inprogressissueList.issueName} */}
                           </h5>
-
-                          <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                            <div class="card" onClick={toggle}>
-                              <div class="card-body">
-                                <h5
-                                  class="card-title"
-                                  style={{ color: "#A80038" }}
-                                >
-                                  Landing Page UI/UX
-                                </h5>
-
-                                <hr />
-                                <span
-                                  style={{ float: "right", color: "#FD0054" }}
-                                >
-                                  Opened By
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                            <div class="card" onClick={toggle}>
-                              <div class="card-body">
-                                <h5
-                                  class="card-title"
-                                  style={{ color: "#A80038" }}
-                                >
-                                  Landing Page UI/UX
-                                </h5>
-                                <hr />
-                                <span
-                                  style={{ float: "right", color: "#FD0054" }}
-                                >
-                                  Opened By
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                          <hr />
+                          <span style={{ float: "right", color: "#FD0054" }}>
+                            Opened By
+                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="card" style={{ borderRadius: "10px" }}>
-                      <div class="card-body">
-                        <div style={{ display: "flex" }}>
-                          <FaCircle size={40} style={{ color: "orange" }} />
-                          <h5
-                            class="card-title"
-                            style={{
-                              fontWeight: "bold",
-                              marginLeft: "1rem",
-                              fontSize: "2rem",
-                            }}
-                          >
-                            In Progress
-                          </h5>
-                        </div>
-                        <div>
-                          <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                            <div class="card" onClick={toggle}>
-                              <div class="card-body">
-                                <h5
-                                  class="card-title"
-                                  style={{ color: "#A80038" }}
-                                >
-                                  Landing Page UI/UX
-                                </h5>
-                                <hr />
-                                <span
-                                  style={{ float: "right", color: "#FD0054" }}
-                                >
-                                  Opened By
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                            <div class="card" onClick={toggle}>
-                              <div class="card-body">
-                                <h5
-                                  class="card-title"
-                                  style={{ color: "#A80038" }}
-                                >
-                                  Landing Page UI/UX
-                                </h5>
-                                <hr />
-                                <span
-                                  style={{ float: "right", color: "#FD0054" }}
-                                >
-                                  Opened By
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                            <div class="card" onClick={toggle}>
-                              <div class="card-body">
-                                <h5
-                                  class="card-title"
-                                  style={{ color: "#A80038" }}
-                                >
-                                  Landing Page UI/UX
-                                </h5>
-                                <hr />
-                                <span
-                                  style={{ float: "right", color: "#FD0054" }}
-                                >
-                                  Opened By
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <div class="card" style={{ borderRadius: "10px" }}>
+                <div class="card-body">
+                  <div style={{ display: "flex" }}>
+                    <FaCircle size={40} style={{ color: "green" }} />
+                    <h5
+                      class="card-title"
+                      style={{
+                        fontWeight: "bold",
+                        marginLeft: "1rem",
+                        fontSize: "2rem",
+                      }}
+                    >
+                      Done
+                    </h5>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="card" style={{ borderRadius: "10px" }}>
-                      <div class="card-body">
-                        <div style={{ display: "flex" }}>
-                          <FaCircle size={40} style={{ color: "green" }} />
-                          <h5
-                            class="card-title"
-                            style={{
-                              fontWeight: "bold",
-                              marginLeft: "1rem",
-                              fontSize: "2rem",
-                            }}
-                          >
-                            Done
+                  <div>
+                    <div class="col-sm-13" style={{ marginTop: "1rem" }}>
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title" style={{ color: "#A80038" }}>
+                            Landing Page UI/UX
                           </h5>
-                        </div>
-                        <div>
-                          <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                            <div class="card" onClick={toggle}>
-                              <div class="card-body">
-                                <h5
-                                  class="card-title"
-                                  style={{ color: "#A80038" }}
-                                >
-                                  Landing Page UI/UX
-                                </h5>
-                                <hr />
-                                <span
-                                  style={{ float: "right", color: "#FD0054" }}
-                                >
-                                  Opened By
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                            <div class="card" onClick={toggle}>
-                              <div class="card-body">
-                                <h5
-                                  class="card-title"
-                                  style={{ color: "#A80038" }}
-                                >
-                                  Landing Page UI/UX
-                                </h5>
-                                <hr />
-                                <span
-                                  style={{ float: "right", color: "#FD0054" }}
-                                >
-                                  Opened By
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-sm-13" style={{ marginTop: "1rem" }}>
-                            <div class="card" onClick={toggle}>
-                              <div class="card-body">
-                                <h5
-                                  class="card-title"
-                                  style={{ color: "#A80038" }}
-                                >
-                                  Landing Page UI/UX
-                                </h5>
-                                <hr />
-                                <span
-                                  style={{ float: "right", color: "#FD0054" }}
-                                >
-                                  Opened By
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                          <hr />
+                          <span style={{ float: "right", color: "#FD0054" }}>
+                            Opened By
+                          </span>
                         </div>
                       </div>
                     </div>
