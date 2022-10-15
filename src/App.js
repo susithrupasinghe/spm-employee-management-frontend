@@ -27,6 +27,7 @@ import UpdateDocumentation from "./pages/EmployeeManagement/ProjectDocumentation
 import EvaluateProject from "./pages/ProjectManager/ProjectEvaluvate/EvaluateProject";
 import ProjectManagerLogin from "./pages/ProjectManager/ProjectManagerLogin/ProjectManagerLogin";
 import AdminLogin from "./pages/Admin/AdminLoginPage/AdminLogin";
+import DeleteDocumentation from "./pages/EmployeeManagement/ProjectDocumentation/DeleteDocumentation"
 
 
 function App() {
@@ -49,7 +50,7 @@ function App() {
 
       <Route excat path="/:name/sprint" element={< Sprint/>} />
 
-      <Route excat path="/:name/kanban" element={<KanbanChart />} />
+      <Route excat path="/kanban/:id" element={<KanbanChart />} />
       <Route excat path="/project/overview" element={< ProjectOverview/>} />
       <Route excat path="/project/addDocumentation/:id" element={< AddDomentation/>} />
       <Route excat path="/project/viewDocumentation/:id" element={< ViewDomentation/>} />
@@ -58,6 +59,9 @@ function App() {
       <Route excat path="/project/report/:id" element={<EvaluateProject/>} />
       <Route excat path="/pmlogin" element={<ProjectManagerLogin/>} />
       <Route excat path="/adminlogin" element={<AdminLogin />} />
+      <Route excat path="/project/deleteDocumentation/:id" element={<DeleteDocumentation/>}/>
+
+
       {/* <Route excat path="/:name/kanban/:id" element={<KanbanChart />} /> */}
 
       </Routes>
