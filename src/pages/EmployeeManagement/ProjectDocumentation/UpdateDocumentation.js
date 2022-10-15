@@ -2,6 +2,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import {
+    NotificationContainer,
+    NotificationManager,
+  } from "react-notifications";
 
 const Header = () => {
   return (
@@ -14,7 +18,27 @@ const Header = () => {
 
 const UpdateEmployeeForm = () => {
  const { id } = useParams();
-  console.log(id);
+//   console.log(id);
+
+  const Update = async (id, documentationTitle, documentationDescription) => {
+    console.log(id);
+    console.log(documentationTitle);
+    console.log(documentationDescription)
+    const result = await axios.put(
+      `http://localhost:5000/api/documentation/updateDetails?id=${id}`,
+      {
+        documentationTitle: documentationTitle,
+        documentationDescription: documentationDescription
+      }
+      
+    );
+
+    if (result.status == 200) {
+      NotificationManager.success("Inserted successfully !");
+    } else {
+      NotificationManager.error("Insertion failed !");
+    }
+  };
 
   const [table, setTable] = useState("");
   const [loading, setLoading] = useState(true);
@@ -23,16 +47,19 @@ const UpdateEmployeeForm = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        "http://localhost:5000/api/documentation/updateDetails?id=62f52ca972746d66e817aca5"
+      const result = await axios.get(
+        `http://localhost:5000/api/documentation/readDocmentationDescription?id=${id}`
       );
       setProjects(result);
       setLoading(false);
-      console.log(result);
+    //   console.log(result);
     };
     fetchData();
   }, []);
 
+ 
+  
+//   console.log(updatedocuments.data.DocumentDes)
   return (
     <div class="row" style={{ marginLeft: "20rem" }}>
       <div class="col-sm-8">
@@ -44,14 +71,16 @@ const UpdateEmployeeForm = () => {
             <form style={{ marginTop: "1.5rem" }}>
               <input
                 type="text"
-                name="documentName"
+                name="documentationTitle"
+                id = "documentationTitle"
                 style={{ marginBottom: "1rem" }}
                 class="form-control"
                 placeholder="Document Title"
               />
               <textarea
                 type="textarea"
-                name="email"
+                name="documentationDescription"
+                id="documentationDescription"
                 style={{ marginBottom: "1rem" }}
                 class="form-control"
                 placeholder="Document Description"
@@ -60,6 +89,20 @@ const UpdateEmployeeForm = () => {
                 type="submit"
                 class="btn btn-dark"
                 style={{ padding: "5px 40px" }}
+                onClick={() => {
+                    const documentationTitle =
+                      document.getElementById("documentationTitle").value;
+  
+                      const documentationDescription =
+                      document.getElementById("documentationDescription").value;
+  
+                    if (documentationTitle == "") {
+                      console.log("No content");
+                      NotificationManager.warning("Please enter your Title ");
+                    } else {
+                        Update(id,documentationTitle,documentationDescription);
+                    }
+                  }}
               >
                 Edit
               </button>

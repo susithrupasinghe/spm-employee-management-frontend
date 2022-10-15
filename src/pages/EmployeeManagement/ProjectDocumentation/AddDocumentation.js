@@ -15,24 +15,6 @@ const Header = () => {
   );
 };
 
-// const Add = async (id, documentationTitle, documentationDescription) => {
-//   console.log(id);
-
-//   const result = await axios.put(
-//     `http://localhost:5000/api/documentation/${id}`,
-//     {
-//       documentationTitle: documentationTitle,
-//     },
-//     { documentationDescription: documentationDescription }
-//   );
-
-//   if (result.status == 200) {
-//     NotificationManager.success("Documentation inserted successfully !");
-//   } else {
-//     NotificationManager.error("Documentation insertion failed !");
-//   }
-// };
-
 const AddEmployeeForm = () => {
   const { id } = useParams();
   console.log(id);
