@@ -25,6 +25,7 @@ import ViewDomentation from "./pages/EmployeeManagement/ProjectDocumentation/Vie
 import RecruitEmployee from "./pages/ProjectManager/RecruitEmployee/RecruitEmployee";
 import UpdateDocumentation from "./pages/EmployeeManagement/ProjectDocumentation/UpdateDocumentation"
 import Issues from "./pages/ProjectManager/Issues/Issues";
+import DeleteDocumentation from "./pages/EmployeeManagement/ProjectDocumentation/DeleteDocumentation"
 
 
 function App() {
@@ -47,13 +48,15 @@ function App() {
 
       <Route excat path="/:id/sprint" element={< Sprint/>} />
 
-      <Route excat path="/:name/kanban" element={<KanbanChart />} />
+      <Route excat path="/kanban/:id" element={<KanbanChart />} />
       <Route excat path="/project/overview" element={< ProjectOverview/>} />
       <Route excat path="/project/addDocumentation/:id" element={< AddDomentation/>} />
       <Route excat path="/project/viewDocumentation/:id" element={< ViewDomentation/>} />
       <Route excat path="/pm/projectdashboard/:id/add" element={< RecruitEmployee/>} />
       <Route excat path="/project/updateDocumentation/:id" element={<UpdateDocumentation/>}/>
       <Route excat path="/:id/issues" element={<Issues />} />
+      <Route excat path="/project/deleteDocumentation/:id" element={<DeleteDocumentation/>}/>
+
 
       {/* <Route excat path="/:name/kanban/:id" element={<KanbanChart />} /> */}
 
