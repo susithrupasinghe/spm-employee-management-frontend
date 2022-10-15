@@ -29,7 +29,9 @@ const CardSection = () => {
     const noOfEmployee = location.state.onOfEmployee;
     const sprints = location.state.sprints;
     const employeeList = location.state.employeeList;
-    console.log("title: ",title);
+    const projectManager = location.state.projectManager;
+    const description = location.state.description;
+    console.log("title: ",description);
     const employeeNavigate = () => {
         navigate(`/pm/projectdashboard/${id}/add`, {
             state: {
@@ -39,10 +41,23 @@ const CardSection = () => {
             }
         })
     }
+
+    const reportNavigate = () => {
+        navigate(`/project/report/${id}`, {
+            state: {
+                title: title,
+                projectId: id,
+                employeeList: employeeList,
+                sprints: sprints,
+                projectManager: projectManager,
+                description: description,
+            }
+        })
+    }
     return (
         <div>
-            <div className="row mt-4" onClick={employeeNavigate}>
-                <div className="col-lg-4 p-3">
+            <div className="row mt-4" >
+                <div className="col-lg-4 p-3" onClick={employeeNavigate}>
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardOne" style={{
                                  backgroundImage: `url(${recruit})`, backgroundSize: "cover", 
@@ -53,7 +68,6 @@ const CardSection = () => {
                         </div>
                 </div>
                 <div className="col-lg-4 p-3">
-                    <Link to="/pmlist">
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardOne" style={{
                                  backgroundImage: `url(${sprint})`, backgroundSize: "cover", 
@@ -61,10 +75,8 @@ const CardSection = () => {
                                  }}>
                             </div>
                         </div>
-                    </Link>
                 </div>
-                <div className="col-lg-4 p-3">
-                    <Link to="/adminprojectsdashboard">
+                <div className="col-lg-4 p-3" onClick={reportNavigate}>
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardTwo" style={{
                                  backgroundImage: `url(${evaluate})`, backgroundSize: "cover", 
@@ -72,7 +84,6 @@ const CardSection = () => {
                                  }}>
                             </div>
                         </div>
-                    </Link>
                 </div>
             </div>
         </div>
