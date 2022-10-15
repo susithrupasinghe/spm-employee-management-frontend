@@ -8,21 +8,6 @@ const Header = () => {
       className="text-center mt-5"
       style={{ fontFamily: "Inter", fontSize: "20px", color: "grey" }}
     >
-      {/* <div style={{ float: "right" }}>
-        <div class="input-group">
-          <div class="form-outline">
-            <input type="text" class="form-control" />
-          </div>
-          <button
-            type="button"
-            class="btn btn-primary"
-            style={{ height: "38px" }}
-          >
-            <i class="fas fa-search"></i>
-            <AiOutlineSearch />
-          </button>
-        </div>
-      </div> */}
     </div>
   );
 };
@@ -48,6 +33,7 @@ const Add = async (event) =>{
     const department =event.target.department.value;
     const mobileNumber =event.target.mobileNumber.value;
     const rate =event.target.rate.value;
+    console.log(role)
    const data ={
     name:name,
     username:name,
@@ -74,7 +60,6 @@ const Add = async (event) =>{
 
 const EmployeeTable =() =>{
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [employee, setEmployee] = useState([]);
 
   useEffect(() => {
@@ -95,13 +80,7 @@ const EmployeeTable =() =>{
         <p>Data Loading</p>
       </>
     );
-  } else if (error) {
-    return (
-      <>
-        <p>Error: {error}</p>
-      </>
-    );
-  } else {
+  }else {
     return (
       <div>
                       <table class="table">
@@ -183,20 +162,26 @@ const AddEmployeeForm = () => {
                 class="form-control"
                 placeholder="Confirm Password"
               />
-              <input
-                type="text"
+              <select
+                id="role"
                 name="role"
                 style={{ marginBottom: "1rem" }}
-                class="form-control"
-                placeholder="Add Role"
-              />
-              <input
-                type="text"
+                class="form-control">
+                  <option value="employee">Employee</option>
+                  <option value="pm">Project Manager</option>
+                  <option selected disabled>Add Role</option>
+              </select>
+              <select
+                id="department"
                 name="department"
                 style={{ marginBottom: "1rem" }}
-                class="form-control"
-                placeholder="Department"
-              />
+                class="form-control">
+                  <option value="accounting">Accounting</option>
+                  <option value="marketing">Marketing</option>
+                  <option value="development">Development</option>
+                  <option value="testing">Testing</option>
+                  <option selected disabled>Select department</option>
+              </select>
               <input
                 type="text"
                 name="mobileNumber"
