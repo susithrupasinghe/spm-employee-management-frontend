@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import profileEdit from '../../../assets/ProjectManagerDashboard/editProfile.svg';
 import projectDetails from '../../../assets/ProjectManagerDashboard/projectDetails.svg';
@@ -13,6 +13,10 @@ const Header = () => {
 }
 
 const CardSection = () => {
+    const navigate = useNavigate()
+    const projectListNavigate = () => {
+        navigate("/pm/projectmanagement")
+    }
 
     return (
         <div>
@@ -29,8 +33,7 @@ const CardSection = () => {
                         </div>
                     </Link>
                 </div>
-                <div className="col-lg-4 p-3">
-                    <Link to="/pmlist">
+                <div className="col-lg-4 p-3" onClick={projectListNavigate}>
                         <div className="card employeeDashboardCard boderRadiusCards" style={{ height : "18rem" }}>
                             <div className="card-body employeeDashboardCardOne" style={{
                                  backgroundImage: `url(${projectDetails})`, backgroundSize: "cover", 
@@ -38,7 +41,6 @@ const CardSection = () => {
                                  }}>
                             </div>
                         </div>
-                    </Link>
                 </div>
                 <div className="col-lg-4 p-3">
                     <Link to="/adminprojectsdashboard">

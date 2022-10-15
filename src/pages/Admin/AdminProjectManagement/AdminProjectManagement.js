@@ -96,7 +96,7 @@ const ModelPopUp = (props) => {
               <select
                 class="form-control"
                 id="exampleFormControlSelect1"
-                defaultValue={props.project.projectManager.name}
+                // defaultValue={props.project.projectManager.name}
                 onChange={(e) => {const data = e.target.value; setPmId(data)}}
               >
                 <option selected>{props.project.projectManager.name}</option>
