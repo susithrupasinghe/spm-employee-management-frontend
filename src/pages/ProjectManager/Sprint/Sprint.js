@@ -120,14 +120,6 @@ const Header = (props) => {
         Sprint
       </span>
       <div>
-        {/* <button
-          type="button"
-          class="btn btn-dark"
-          style={{ padding: "8px 25px" }}
-          onClick={generatePDF}
-        >
-          Report
-        </button> */}
         <button
           type="button"
           class="btn btn-dark"
@@ -428,18 +420,6 @@ console.log(todoListLast);
             <div className="col-lg-12">
               <Header count={0} id={id}/>
             </div>
-            {/* <div className="col-lg-12" style={{ marginTop: "2rem" }}>
-              <SprintCard />
-            </div>
-            <div className="col-lg-12" style={{ marginTop: "1.5rem" }}>
-              <SprintCard />
-            </div> */}
-                {/* <div className="col-lg-12" style={{ marginTop: "2rem" }}>
-              <SprintCard />
-            </div>
-            <div className="col-lg-12" style={{ marginTop: "1.5rem" }}>
-              <SprintCard />
-            </div> */}
           </div>
         </div>
       </div>
