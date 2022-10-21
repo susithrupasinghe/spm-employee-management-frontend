@@ -116,7 +116,16 @@ const ViewEmployeeDocument = () => {
           </h3>
           {/* <Tooltip title="Add Documentation"> */}
           <a>
-            
+            <Button
+              className="btn pluss"
+              title="Add Document"
+              style={{ marginLeft: "1rem", marginBottom: "2rem" }}
+              onClick={() => {
+                navigateAddDocumentation(id);
+              }}
+            >
+              Add Documentation
+            </Button>
             <Button 
             style={{ marginLeft: "1rem", marginBottom: "2rem" }}
             onClick={generatePDF}>Report</Button>
