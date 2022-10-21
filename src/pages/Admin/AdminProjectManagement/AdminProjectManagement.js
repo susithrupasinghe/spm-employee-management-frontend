@@ -282,30 +282,7 @@ const Table = () => {
 
 const AdminProjectManagement = () => {
   const dataSet = [
-    {
-      project_id: "12354677678",
-      project_name: "Project1",
-      description: "This is a project",
-      project_manager: [{ name: "Susith rupasinghe" }],
-    },
-    {
-      project_id: "12354677678",
-      project_name: "Project2",
-      description: "This is a project fsdfsdfsdfsd",
-      project_manager: [{ name: "Susith rupasinghe" }],
-    },
-    {
-      project_id: "12354677678",
-      project_name: "Project3",
-      description: "This is a project dasfdadsfsadf",
-      project_manager: [{ name: "Susith rupasinghe" }],
-    },
-    {
-      project_id: "12354677678",
-      project_name: "Project4",
-      description: "This is a project fsdfsdfsdfsdfs",
-      project_manager: [{ name: "Susith rupasinghe" }],
-    },
+    
   ];
   return (
     <div>
