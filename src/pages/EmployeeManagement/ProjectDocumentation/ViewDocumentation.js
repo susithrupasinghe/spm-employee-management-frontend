@@ -74,28 +74,6 @@ const ViewEmployeeDocument = () => {
     doc.save();
   }
 
-
-  // const columns = [
-  //   {title: "Documentation Name", field: ""},
-  //   {title: "Documentation Description", field: ""}
-  // ];
-
-  // // console.log(documents.data.Document);
-
-  // const generatePDF = () => {
-  //   const doc = new jsPDF();
-  //   doc.text("Documentation report");
-  //   doc.autoTable({
-  //     columns: columns.map((col) => ({
-  //       ...col,
-  //       dataKey: col.field,
-  //     })),
-  //     body: documents.data.Document
-  //   });
-  //   doc.save();
-  // }
-
-
   const navigate = useNavigate();
 
   const navigateAddDocumentation = (id) => {
@@ -138,16 +116,7 @@ const ViewEmployeeDocument = () => {
           </h3>
           {/* <Tooltip title="Add Documentation"> */}
           <a>
-            <Button
-              className="btn pluss"
-              title="Add Document"
-              style={{ marginLeft: "1rem", marginBottom: "2rem" }}
-              onClick={() => {
-                navigateAddDocumentation(id);
-              }}
-            >
-              Add Documentation
-            </Button>
+            
             <Button 
             style={{ marginLeft: "1rem", marginBottom: "2rem" }}
             onClick={generatePDF}>Report</Button>
