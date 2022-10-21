@@ -2,6 +2,11 @@ import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete, } from "react-icons/ai";
+import "jspdf-autotable";
+import jsPDF from "jspdf";
+
+
+
 const Header = () => {
   return (
     <div
@@ -74,6 +79,27 @@ const EmployeeTable =() =>{
     fetchData();
   }, []);
 
+  const columns = [
+    { title: "Username", field: "username" },
+    { title: "Email", field: "email" },
+    { title: "Department", field: "department" },
+    { title: "mobile number", field: "mobileNumber" },
+  ];
+    const generatePDF = () => {
+      const doc = new jsPDF();
+      doc.text(`Employee Report`, 30, 10);
+      doc.autoTable({
+          columns: columns.map((col) => ({
+              ...col,
+              dataKey: col.field,
+          })),
+          body: employee,
+      });
+      doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, 70);
+      doc.text(`Time: ${new Date().toLocaleTimeString()}`, 10, 80);
+    doc.save(` Employee Report.pdf`);
+  };
+
   if (loading) {
     return (
       <>
@@ -122,12 +148,19 @@ const EmployeeTable =() =>{
                           </tbody>
                         ))}
                       </table>
+                      <div>
+                        <button onClick={generatePDF} type="button" class="btn btn-dark" style={{float: "right", padding:"5px 30px"}}>Generate</button>
+                      </div>
                     </div>
+                    
     )
   } 
 };
 const AddEmployeeForm = () => {
   
+
+
+
   return (
     <div class="row">
       <div class="col-sm-4">
@@ -211,9 +244,6 @@ const AddEmployeeForm = () => {
         <div class="card" style={{ borderRadius: "15px" }}>
           <div class="card-body">
             <EmployeeTable/>
-            <div>
-            <button type="button" class="btn btn-dark" style={{float: "right", padding:"5px 30px"}}>Generate</button>
-          </div>
         </div>
       </div>
     </div>
