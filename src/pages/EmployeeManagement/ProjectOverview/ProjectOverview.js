@@ -32,7 +32,7 @@ const Projects = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        "http://localhost:5000/api/employee/readEmployeeProject?id=617cb274eb7f2f0016bbcd44"
+        "http://localhost:3001/api/employee/readEmployeeProject/617cb274eb7f2f0016bbcd44"
       );
       setProjects(result);
       setLoading(false);
@@ -123,9 +123,9 @@ const Projects = () => {
                       </h5>
                       <span>Project Manager: </span>
                       <br />
-                      <span style={{ color: "#FD0054", fontSize: "1.5rem" }}>
+                      {/* <span style={{ color: "#FD0054", fontSize: "1.5rem" }}>
                         {project.projectManager.name}
-                      </span>
+                      </span> */}
                       <div
                         style={{
                           display: "flex",

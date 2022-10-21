@@ -6,6 +6,7 @@ import {
     NotificationContainer,
     NotificationManager,
   } from "react-notifications";
+import { Button } from "reactstrap";
 
 const Header = () => {
   return (
@@ -16,50 +17,60 @@ const Header = () => {
   );
 };
 
-const UpdateEmployeeForm = () => {
- const { id } = useParams();
-//   console.log(id);
-
-  const Update = async (id, documentationTitle, documentationDescription) => {
+const Update = async (id, title, des) => {
     console.log(id);
-    console.log(documentationTitle);
-    console.log(documentationDescription)
+    console.log(title);
+    console.log(des)
     const result = await axios.put(
-      `http://localhost:5000/api/documentation/updateDetails?id=${id}`,
+      `http://localhost:3001/api/documentation/updateDetails?id=${id}`,
+
       {
-        documentationTitle: documentationTitle,
-        documentationDescription: documentationDescription
+        documentationTitle: title,
+        documentationDescription: des
       }
       
     );
 
+    console.log(result)
+
     if (result.status == 200) {
-      NotificationManager.success("Inserted successfully !");
+      NotificationManager.success("Updated successfully !");
+      setTimeout(()=>{}, 2000);
+    window.location = "/project/viewDocumentation/6174c1868706230016a66ab2";
+    //   window.locatio;
     } else {
-      NotificationManager.error("Insertion failed !");
+      NotificationManager.error("Updated failed !");
     }
   };
+
+const UpdateEmployeeForm = () => {
+ const { id } = useParams();
+//   console.log(id);
+
+
 
   const [table, setTable] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [updatedocuments, setProjects] = useState([]);
+  const [updatedocuments, setProjects] = useState();
 
+  const fetchData = async () => {
+    const result = await axios.get(
+      `http://localhost:3001/api/documentation/readDocmentationDescription?id=${id}`
+    );
+    setProjects(result.data.DocumentDes[0]);
+    setLoading(false);
+  console.log(result);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get(
-        `http://localhost:5000/api/documentation/readDocmentationDescription?id=${id}`
-      );
-      setProjects(result);
-      setLoading(false);
-    //   console.log(result);
-    };
+
     fetchData();
   }, []);
 
  
   
 //   console.log(updatedocuments.data.DocumentDes)
+if(!loading){
   return (
     <div class="row" style={{ marginLeft: "20rem" }}>
       <div class="col-sm-8">
@@ -68,8 +79,10 @@ const UpdateEmployeeForm = () => {
             <h5 class="card-title" style={{ marginLeft: "13rem" }}>
               Edit Documentation
             </h5>
+            <NotificationContainer></NotificationContainer>
             <form style={{ marginTop: "1.5rem" }}>
               <input
+                defaultValue={updatedocuments.documentationTitle}
                 type="text"
                 name="documentationTitle"
                 id = "documentationTitle"
@@ -78,6 +91,7 @@ const UpdateEmployeeForm = () => {
                 placeholder="Document Title"
               />
               <textarea
+                defaultValue={updatedocuments.documentationDescription}
                 type="textarea"
                 name="documentationDescription"
                 id="documentationDescription"
@@ -85,8 +99,8 @@ const UpdateEmployeeForm = () => {
                 class="form-control"
                 placeholder="Document Description"
               />
-              <button
-                type="submit"
+              <Button
+                
                 class="btn btn-dark"
                 style={{ padding: "5px 40px" }}
                 onClick={() => {
@@ -105,7 +119,7 @@ const UpdateEmployeeForm = () => {
                   }}
               >
                 Edit
-              </button>
+              </Button>
             </form>
           </div>
         </div>
@@ -113,6 +127,7 @@ const UpdateEmployeeForm = () => {
     </div>
   );
 };
+}
 
 const UpdateDocumentation = () => {
   return (

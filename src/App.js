@@ -24,6 +24,9 @@ import AddDomentation from "./pages/EmployeeManagement/ProjectDocumentation/AddD
 import ViewDomentation from "./pages/EmployeeManagement/ProjectDocumentation/ViewDocumentation"
 import RecruitEmployee from "./pages/ProjectManager/RecruitEmployee/RecruitEmployee";
 import UpdateDocumentation from "./pages/EmployeeManagement/ProjectDocumentation/UpdateDocumentation"
+import EvaluateProject from "./pages/ProjectManager/ProjectEvaluvate/EvaluateProject";
+import ProjectManagerLogin from "./pages/ProjectManager/ProjectManagerLogin/ProjectManagerLogin";
+import AdminLogin from "./pages/Admin/AdminLoginPage/AdminLogin";
 import Issues from "./pages/ProjectManager/Issues/Issues";
 import DeleteDocumentation from "./pages/EmployeeManagement/ProjectDocumentation/DeleteDocumentation"
 
@@ -54,6 +57,9 @@ function App() {
       <Route excat path="/project/viewDocumentation/:id" element={< ViewDomentation/>} />
       <Route excat path="/pm/projectdashboard/:id/add" element={< RecruitEmployee/>} />
       <Route excat path="/project/updateDocumentation/:id" element={<UpdateDocumentation/>}/>
+      <Route excat path="/project/report/:id" element={<EvaluateProject/>} />
+      <Route excat path="/pmlogin" element={<ProjectManagerLogin/>} />
+      <Route excat path="/adminlogin" element={<AdminLogin />} />
       <Route excat path="/:id/issues" element={<Issues />} />
       <Route excat path="/project/deleteDocumentation/:id" element={<DeleteDocumentation/>}/>
 

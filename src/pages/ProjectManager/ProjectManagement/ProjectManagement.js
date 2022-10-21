@@ -31,6 +31,7 @@ const Header = () => {
     const navigate = useNavigate();
 
     const navigateDashboard = (project) => {
+      console.log("sprint " + project.descripton);
       navigate(`/pm/projectdashboard/${project._id}`, {
         state: {
           projectName: project.projectName,
@@ -38,6 +39,8 @@ const Header = () => {
           onOfEmployee: project.employeeList.length,
           sprints: project.sprintList.length,
           employeeList: project.employeeList,
+          projectManager: project.projectManager,
+          description: project.descripton,
          },
       });
     }
