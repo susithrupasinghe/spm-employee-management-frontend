@@ -11,5 +11,5 @@ Team Members
 
 Tech - stack
 
-React
-Bootstrap
+1. ReactJs
+2. Bootstrap
