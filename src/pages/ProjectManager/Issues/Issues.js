@@ -44,21 +44,21 @@ function Header() {
                                 setFormData(prev => {
                                     return { ...prev, issueName: e.target.value }
                                 })
-                            }} value={formData.issueName} className="form-control mb-2" id='feedback'></input>
+                            }} value={formData.issueName} className="form-control mb-2" id='feedback' required></input>
 
                             <label>Estimated Date</label>
                             <input type="date" onChange={(e) => {
                                 setFormData(prev => {
                                     return { ...prev, estimatedTime: e.target.value }
                                 })
-                            }}  className="form-control mb-2" id='feedback'></input>
+                            }}  className="form-control mb-2" id='feedback' min={ new Date().toISOString().split("T")[0]}  required></input>
 
                             <label>Description</label>
                             <textarea onChange={(e) => {
                                 setFormData(prev => {
                                     return { ...prev, description: e.target.value }
                                 })
-                            }} className="form-control mb-2"></textarea>
+                            }} className="form-control mb-2" required></textarea>
 
                             <label>Assignee</label><br></br>
                             <select onChange={(e) => {
@@ -75,7 +75,7 @@ function Header() {
                                 setFormData(prev => {
                                     return { ...prev, points: e.target.value }
                                 })
-                            }} className="form-control mb-3" />
+                            }} className="form-control mb-3" required />
 
                             <input type="submit" className="btn btn-dark mb-2" value="Create" />
                         </form>

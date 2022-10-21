@@ -11,6 +11,8 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import DatePicker from "react-datepicker";
 import { Link } from 'react-router-dom';
 import 'react-notifications/lib/notifications.css';
+import jsPDF from 'jspdf';
+import "jspdf-autotable";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -118,13 +120,14 @@ const Header = (props) => {
         Sprint
       </span>
       <div>
-        <button
+        {/* <button
           type="button"
           class="btn btn-dark"
           style={{ padding: "8px 25px" }}
+          onClick={generatePDF}
         >
           Report
-        </button>
+        </button> */}
         <button
           type="button"
           class="btn btn-dark"
@@ -222,6 +225,7 @@ const SprintCard = (props) => {
             >
               Add Task
             </Link>
+            {/* <button>Report</button> */}
           </div>
         }
 
@@ -307,7 +311,7 @@ const Sprint = () => {
       item.progress = "todo"
       return item;
     })
-
+console.log(todoListLast);
     inProgressListLast = inProgressListLast.map((item) => {
       item.progress = "inprogress"
       return item;
@@ -318,7 +322,31 @@ const Sprint = () => {
       return item;
     })
 
+
+
     const TaskListLast = [...todoListLast, ...inProgressListLast, ...doneListLast];
+  
+
+    const columns = [
+      {title: "Task Name", field: "issueName"},
+      {title: "Assignee", field: "assignee"},
+      {title: "Estimated Date", field: "estimatedTime"},
+      {title: "story points", field: "points"},
+      
+    ]
+
+    const generatePDF = () => {
+      const doc = new jsPDF();
+      doc.text("Sprint report", 30, 10);
+      doc.autoTable({
+        columns: columns.map((col) => ({
+          ...col,
+          dataKey: col.field,
+        })),
+        body: TaskListLast,
+      });
+      doc.save("Sprint report.pdf");
+    }
 
 
     // Previous Sprint
@@ -355,13 +383,16 @@ const Sprint = () => {
 
     }
 
-
+  console.log(TaskListLast);
     return (
       <div>
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <Header count={sprintCount}  id={id}/>
+              <button type="button"
+          class="btn btn-dark"
+          style={{ padding: "8px 25px" , float: 'right'}}onClick={generatePDF}>report</button>
             </div>
             {
               sprintCount >= 1 && TaskListPrev != null ?

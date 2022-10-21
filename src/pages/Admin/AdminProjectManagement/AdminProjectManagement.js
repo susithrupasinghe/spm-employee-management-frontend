@@ -42,6 +42,18 @@ const ModelPopUp = (props) => {
     } catch (error) {}
   };
 
+  const handleDelete = (id) => {
+    if(window.confirm("Are you sure to delete this record?")) {
+      axios.delete(`http://localhost:5000/api/project/${id}`)
+      .then((res) => {
+        if(res) {
+          alert("Record deleted successfully");
+          window.location.reload();
+        }
+      })
+    }
+  }
+
   return (
     <tr>
       <td>{props.project._id}</td>
@@ -52,7 +64,7 @@ const ModelPopUp = (props) => {
           style={{ color: "#A80038", marginRight: "20px" }}
           onClick={toggle}
         />
-        <MdDelete size={25} style={{ color: "#A80038" }} />
+        <MdDelete size={25} style={{ color: "#A80038" }} onClick={() =>handleDelete(props.project._id)} />
       </td>
 
       <Modal isOpen={modal} toggle={toggle}>
@@ -84,7 +96,7 @@ const ModelPopUp = (props) => {
               <select
                 class="form-control"
                 id="exampleFormControlSelect1"
-                defaultValue={props.project.projectManager.name}
+                // defaultValue={props.project.projectManager.name}
                 onChange={(e) => {const data = e.target.value; setPmId(data)}}
               >
                 {/* <option selected>{props.project.projectManager.name}</option> */}
