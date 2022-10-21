@@ -28,7 +28,7 @@ const Login = (props) => {
             });
         }
         else if (role === "PM") {
-            axios.post("http://localhost:5000/api/projectmanager/login", {
+            axios.post("http://localhost:5000/api/employee/login", {
                 email: email,
                 password: password,
             }).then((res) => {

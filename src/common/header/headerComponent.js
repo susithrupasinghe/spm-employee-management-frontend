@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import "./headerComponent.css";
 
 
@@ -8,7 +9,7 @@ const Home = () => {
         name: 'susith',
         img: 'https://mdbcdn.b-cdn.net/img/new/avatars/8.webp'
     }
-
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -28,11 +29,16 @@ const Home = () => {
 
     }, [])
 
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate("/emplogin");
+    }
+
     return (
         <>
-            <div>
-                <nav className="navbar navbar-expand-lg econnecteeNavbar">
-                    <div className="container-fluid">
+            <div className='bg-dark'>
+                <nav className="navbar navbar-expand-lg econnecteeNavbar bg-dark">
+                    <div className="container-fluid bg-dark">
                         <a className="navbar-brand text-white" href="/">
                             Solid HRM
                         </a>
@@ -87,9 +93,7 @@ const Home = () => {
                                                                 <a
                                                                     class="dropdown-item"
                                                                     href="#"
-                                                                    onClick={() => {
-                                                                        //
-                                                                    }}
+                                                                    onClick={handleLogout}
                                                                 >
                                                                     Logout
                                                                 </a>
