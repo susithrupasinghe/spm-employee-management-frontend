@@ -12,14 +12,16 @@ import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const DeletePopUp = async (id) => {
-  if (window.confirm("jdnlakl")) {
+  if (window.confirm("Are you sure")) {
     const result = await axios.delete(
-      `http://localhost:5000/api/documentation/deleteDoc?id=${id}`
+      `http://localhost:3001/api/documentation/deleteDoc?id=${id}`
     );
     if (result) {
-      alert("Sskjkdjdl");
+      alert("Delete Documentation");
       window.location.reload();
     }
   } else {
@@ -43,7 +45,7 @@ const ViewEmployeeDocument = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        `http://localhost:5000/api/documentation/readDocmentationByProject?id=${id}`
+        `http://localhost:3001/api/documentation/readDocmentationByProject?id=${id}`
       );
       setProjects(result);
       setLoading(false);
@@ -51,6 +53,48 @@ const ViewEmployeeDocument = () => {
     };
     fetchData();
   }, []);
+
+  const columns = [
+    {title: "Documentation Name", field: "documentationTitle"},
+    {title: "Documentation Description", field: "documentationDescription"}
+  ];
+
+  // console.log(documents.data.Document);
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.text("Documentation report", 30, 10);
+    doc.autoTable({
+      columns: columns.map((col) => ({
+        ...col,
+        dataKey: col.field,
+      })),
+      body: documents.data.Document
+    });
+    doc.save();
+  }
+
+
+  // const columns = [
+  //   {title: "Documentation Name", field: ""},
+  //   {title: "Documentation Description", field: ""}
+  // ];
+
+  // // console.log(documents.data.Document);
+
+  // const generatePDF = () => {
+  //   const doc = new jsPDF();
+  //   doc.text("Documentation report");
+  //   doc.autoTable({
+  //     columns: columns.map((col) => ({
+  //       ...col,
+  //       dataKey: col.field,
+  //     })),
+  //     body: documents.data.Document
+  //   });
+  //   doc.save();
+  // }
+
 
   const navigate = useNavigate();
 
@@ -81,7 +125,7 @@ const ViewEmployeeDocument = () => {
   } else {
     return (
       <div>
-        <div class="col-sm-4">
+        <div class="col">
           <h3
             class="card-title"
             style={{
@@ -95,15 +139,18 @@ const ViewEmployeeDocument = () => {
           {/* <Tooltip title="Add Documentation"> */}
           <a>
             <Button
-              class="btn pluss"
+              className="btn pluss"
               title="Add Document"
-              style={{ marginLeft: "15rem", marginBottom: "2rem" }}
+              style={{ marginLeft: "1rem", marginBottom: "2rem" }}
               onClick={() => {
                 navigateAddDocumentation(id);
               }}
             >
               Add Documentation
             </Button>
+            <Button 
+            style={{ marginLeft: "1rem", marginBottom: "2rem" }}
+            onClick={generatePDF}>Report</Button>
             {/* <h5 style={{ marginLeft: "1rem" }}>Documentations</h5> */}
           </a>
           {/* </Tooltip> */}
@@ -133,14 +180,7 @@ const ViewEmployeeDocument = () => {
                             </td>
                             <td>
                               <div>
-                                <AiOutlineMore
-                                  size={25}
-                                  style={{
-                                    color: "#A80038",
-                                    marginRight: "20px",
-                                  }}
-                                  onClick={() => {}}
-                                />
+                               
                                 <a>
                                   <AiOutlineEdit
                                     size={25}

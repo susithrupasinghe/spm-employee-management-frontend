@@ -28,7 +28,7 @@ const Chart = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        "http://localhost:5000/api/issue/issueTodo/6174c1868706230016a66ab2"
+        "http://localhost:3001/api/issue/issueTodo/6174c1868706230016a66ab2"
       );
       setIssueList(result.data);
       console.log(result.data);
@@ -60,7 +60,7 @@ const Chart = () => {
       estimatedTime: parseInt(hours) + parseInt(dotoissueList.estimatedTime),
     };
 
-    const result = axios.put(`http://localhost:5000/api/issue/${id}`, data);
+    const result = axios.put(`http://localhost:3001/api/issue/${id}`, data);
     if (result) {
       console.log(result);
     }
