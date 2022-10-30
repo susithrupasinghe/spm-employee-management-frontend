@@ -98,22 +98,7 @@ const Chart = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            {/* <form onSubmit={hadleHours}>
-              <div class="form-group">
-                <input
-                  required
-                  type="num"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  onChange={(e) => setHours(e.target.value)}
-                  placeholder="Add Hours"
-                />
-              </div>{" "}
-            </form> */}
-            {/* <Button class="btn btn-dark" onClick={toggle}>
-              Add to time log
-            </Button> */}
+            
           </ModalFooter>
         </Modal>
         <div class="card" style={{ borderRadius: "10px" }}></div>
@@ -129,6 +114,7 @@ const Chart = () => {
                     marginLeft: "1rem",
                     fontSize: "2rem",
                   }}
+
                 >
                   To do
                 </h5>
